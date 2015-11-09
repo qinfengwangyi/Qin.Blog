@@ -1,0 +1,41 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "文章详细";
+}
+@model Qin.Blog.Entity.Article
+@if (Model != null)
+{
+    <h3 style="text-align:center">@Model.Header</h3>
+    if (Model.Pics != null)
+    {
+        <div>
+            <img src="@Model.Pics" style="max-height:300px;max-width:100%;"/>
+        </div>
+    }
+    <div class="col-md-6">
+        <span class="glyphicon glyphicon-user" title="作者">@(Model.CreateUser != null ? Model.CreateUser : "Unix")</span>
+    </div>
+    <div class="col-md-6" style="text-align:right">
+        @Model.CreateTime.ToString("yyyy-MM-dd HH:mm:ss")
+    </div>
+    <div>
+        @Html.Raw(Model.Content)
+    </div>
+    <div>
+        阅读：@Model.ViewCount &nbsp;&nbsp;&nbsp;&nbsp;
+        喜欢：@Model.Praise
+    </div>
+    <div style="text-align:center">
+        <span><i style="height:50px;width:50px" class="glyphicon glyphicon-heart-empty"></i></span>
+    </div>
+}
+else
+{
+    <h3 style="text-align:center">该文章不存在</h3>
+}
+
+
+@section RightPage{
+    <br />
+    哈哈，Show the Arithmetic
+}

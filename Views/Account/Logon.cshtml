@@ -1,0 +1,55 @@
+﻿@{
+    ViewBag.Title = "Logon";
+    Layout = null;
+}
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/bootstrap.min.js"></script>
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+
+<div class="row" style="text-align:center">
+    <div class="col-md-4"></div>
+    <div class="col-md-3">
+        <form action="Logon" method="post">
+            <div class="row">
+                <h2>Logon</h2>
+            </div>
+            <p style="height:20px"></p>
+            <div class="row">
+                <div class="col-md-4">
+                    用户名：
+                </div>
+                <div class="col-md-8">
+                    <input class="form-control" type="text" name="userName" placeholder="请输入用户名" />
+                </div>
+            </div>
+            <p style="height:20px"></p>
+            <div class="row">
+                <div class="col-md-4">
+                    密  码：
+                </div>
+                <div class="col-md-8">
+                    <input class="form-control" type="password" name="passWord" placeholder="请输入您的密码" />
+                </div>
+            </div>
+            <p style="height:20px"></p>
+            <div class="row">
+                <div class="col-md-6" style="text-align:right">
+                    <button id="reset" type="button" class="btn btn-default">重置</button>
+                </div>
+                <div class="col-md-6" style="text-align:left">
+                    <button type="submit" class="btn btn-success">登录</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="col-md-5"></div>
+</div>
+
+<script type="text/javascript">
+    $(function () {
+        $("#reset").click(function () {
+            $("[name=userName]").val("");
+            $("[name=passWord]").val("");
+        });
+    });
+</script>

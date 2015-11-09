@@ -1,0 +1,92 @@
+﻿
+@*<div class="jumbotron">
+        <h1>Keefe,Welcome</h1>
+        <p class="lead">
+            Before MySQL 5.0.3, if you need a data type for which trailing spaces are not removed,
+            consider using a BLOB or TEXT type. Also, if you want to store binary values such as results from an
+            encryption or compression function that might contain arbitrary byte values.<br />
+            Email:qinfengwangyi@163.com<br />
+        </p>
+        <p><a href="@Url.Action("AddArticle", "Home")" class="btn btn-primary btn-lg">Manager &raquo;</a>&nbsp;<a href="@Url.Action("TestLog", "Home")" class="btn btn-primary btn-lg">TestLog</a></p>
+    </div>
+
+    <div class="row">
+        <div id="articlelist" class="col-md-12">
+            <div class="row">
+                <p>
+                    <h3 class="col-md-12">iOS Article</h3>
+                </p>
+                <p>
+                    <img class="col-md-2" src="~/Resource/29381f30e924b899eb0d9b616d061d950a7bf6b2.jpg" alt="图片" style="max-height:200px;max-width:200px" />
+                    <div class="col-md-10">
+                        Before MySQL 5.0.3, if you need a data type for which trailing spaces are not removed,
+                        consider using a BLOB or TEXT type. Also, if you want to store binary values such as results from an
+                        encryption or compression function that might contain arbitrary byte values.
+                        包括250多个来自 Glyphicon Halflings 的字体图标。Glyphicons Halflings 一般是收费的，
+                        但是他们的作者允许 Bootstrap 免费使用。为了表示感谢，希望你在使用时尽量为 Glyphicons 添加一个友情链接
+                    </div>
+
+                </p>
+                <p class="col-md-6">
+                    <i class="glyphicon glyphicon-eye-open"></i>6800&nbsp;&nbsp;
+                    <i class="glyphicon glyphicon-share"></i>Share
+                </p>
+                <p class="col-md-4" style="text-align:right">
+                    <i class="glyphicon glyphicon-user"></i>Admin&nbsp;&nbsp;
+                    <i class="glyphicon glyphicon-time"></i>2015/10/10 13:20:21
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/html" id="dataTmpl">
+        <div class="row">
+
+            <h3 class="col-md-12">${Header}</h3>
+            <p>
+                <img class="col-md-2" src="${Pics}" alt="图片" style="max-height:200px;max-width:200px" />
+                <div class="col-md-10">${Abstract}</div>
+            </p>
+            <p class="col-md-6">
+                <i class="glyphicon glyphicon-eye-open"></i>500 &nbsp;&nbsp;
+                <i class="glyphicon glyphicon-share"></i>Share
+            </p>
+            <p class="col-md-4" align="right">
+                <i class="glyphicon glyphicon-user"></i>${CreateUser==null?"Blog爱好者":CreateUser} &nbsp;&nbsp;
+                <i class="glyphicon glyphicon-time"></i>${CreateTime=='/Date(-1893484800000)/'?"":CreateTime}
+            </p>
+
+        </div>
+    </script>
+
+    <script src="~/Scripts/template.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        var PageIndex;
+        $(function () {
+            PageIndex = 1;
+            Page();
+        });
+
+        function Page() {
+            var Condition = [];
+            Condition.push({ Title: 'Abstract' });
+            Condition.push({ Value: 'iOS' });
+
+            $.ajax({
+                url: '/Article/Pages',
+                dataType: 'json',
+                data: { conditions: Condition, pageIndex: PageIndex },
+                type: 'get',
+                success: function (data) {
+                    if (data.status) {
+                        var articlelist = $("#articlelist");
+                        $.each(data.data, function (index, element) {
+                            articlelist.append(TrimPath.processDOMTemplate("dataTmpl", element));
+                        });
+                    }
+                },
+                error: function (data) {
+                }
+            });
+        }
+    </script>*@

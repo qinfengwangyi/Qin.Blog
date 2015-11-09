@@ -1,0 +1,124 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "添加文章";
+}
+<style type="text/css">
+    option {
+        height: 50px;
+    }
+</style>
+<div class="row"><h2>AddArticle</h2></div>
+
+<div class="row">
+
+    <div class="col-md-12">
+        <div class="row">
+            <form id="form1" action="/Article/Insert" method="post">
+                <div class="row">
+                    <div class="col-md-2">
+                        <label>文章分类：</label>
+                    </div>
+                    <div class="col-md-10">
+                        <select id="TypeId" name="TypeId" class="form-control"></select>
+                    </div>
+                </div>
+                <p></p>
+                <div class="row">
+                    <div class="col-md-2">
+                        <label>是否置顶：</label>
+                    </div>
+                    <div class="col-md-10">
+                        <select name="IsTop" class="form-control">
+                            <option value="0" selected>否</option>
+                            <option value="1">是</option>
+                        </select>
+                    </div>
+                </div>
+                <p></p>
+                <div class="row">
+                    <div class="col-md-2">
+                        <label>文章标题：</label>
+                    </div>
+                    <div class="col-md-10">
+                        <input name="Header" class="form-control" />
+                    </div>
+                </div>
+                <p></p>
+                <div class="row">
+                    <div class="col-md-2">
+                        <label>文章摘要：</label>
+                    </div>
+                    <div class="col-md-10">
+                        <textarea name="Abstract" cols="40" class="form-control" style="height:100px"></textarea>
+                    </div>
+                </div>
+                <p></p>
+                <div class="row">
+                    <div class="col-md-2">
+                        <label>文章内容：</label>
+                    </div>
+                    <div class="col-md-10">
+                        <script id="Content" name="Content"></script>
+                    </div>
+                </div>
+                <p></p>
+                <div class="row">
+                    <div class="col-md-2">
+                        <label>文章标签：</label>
+                    </div>
+                    <div class="col-md-10">
+                        <input name="Tag" class="form-control" />
+                    </div>
+                </div>
+                <p style="height:10px"></p>
+                <div class="col-lg-offset-4">
+                    <button type="submit" id="save" class="btn btn-primary">保存</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <button id="cancel" class="btn">取消</button>
+                </div>
+            </form>
+            <p style="height:10px"></p>
+        </div>
+    </div>
+</div>
+@section RightPage{
+    <div class="col-md-12">
+        <p>
+            <br /><br /><br />
+            Email:qinfengwangyi@163.com<br />
+        </p>
+    </div>
+}
+<script src="~/Content/ueditor/ueditor.config.js"></script>
+<script src="~/Content/ueditor/ueditor.all.js"></script>
+<script type="text/javascript">
+    var ueditor = UE.getEditor('Content', {
+        autoHeightEnabled: false,
+        initialFrameHeight: 600
+    });
+
+
+    $(function () {
+
+        GetArticleType();
+    });
+
+    function GetArticleType() {
+        var articleType = $("#TypeId");
+        $.getJSON("/ArticleType/TypeList", function (data) {
+            if (data.status) {
+                $.each(data.data, function () {
+                    $("<option/>").val(this.Id).text(this.TypeName).appendTo(articleType);
+                });
+            } else {
+                $("<option/>").val("0").text("未分类(暂无文章分类)").appendTo(articleType);
+            }
+        });
+    }
+
+    function form1() {
+        if ($("#form1").data.count == 1) {
+            alert(data.info);
+        }
+    }
+
+</script>

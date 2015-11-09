@@ -1,0 +1,154 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+<h3>Article List</h3>
+<div id="articlelist" class="col-md-12">
+</div>
+<div class="col-md-12">
+    <a id="more" href="#" class="btn btn-success" style="height:auto;width:100%">更多</a>
+</div>
+@section RightPage{
+
+}
+<script type="text/html" id="dataTmpl">
+    <div class="row">
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <h3 class="col-md-12">${Header}</h3>
+            </div>
+            <div class="panel-body">
+                <p>
+                    <a href="@Url.Action("Detail", "Article")?id=${Id}">
+                        <img class="col-md-2" src="/Resource/29381f30e924b899eb0d9b616d061d950a7bf6b2.jpg" alt="图片" style="max-height:200px;max-width:200px" />
+                        <div class="col-md-10">${Abstract}</div>
+                    </a>
+                </p>
+                <p class="col-md-6">
+                    <i class="glyphicon glyphicon-eye-open"></i>500 &nbsp;&nbsp;
+                    <i class="glyphicon glyphicon-share"></i>Share
+                </p>
+                <p class="col-md-4" align="right">
+                    <i class="glyphicon glyphicon-user"></i>${CreateUser==null?"Blog Fan":CreateUser} &nbsp;&nbsp;
+                    <i class="glyphicon glyphicon-time"></i>${CreateTime=='/Date(-1893484800000)/'?"":$.modifiers.formatDate(CreateTime)}
+                </p>
+            </div>
+        </div>
+
+        @*<dl>
+                <dt>${Header}</dt>
+                <dd>${Abstract}</dd>
+            </dl>*@
+        @*<p>
+                <a href="@Url.Action("Detail", "Article")?id=${Id}">
+
+                    <img class="col-md-2" src="/Resource/29381f30e924b899eb0d9b616d061d950a7bf6b2.jpg" alt="图片" style="max-height:200px;max-width:200px" />
+
+                    <div class="col-md-10">${Abstract}</div>
+                </a>
+            </p>
+            <p class="col-md-6">
+                <i class="glyphicon glyphicon-eye-open"></i>500 &nbsp;&nbsp;
+                <i class="glyphicon glyphicon-share"></i>Share
+            </p>
+            <p class="col-md-4" align="right">
+                <i class="glyphicon glyphicon-user"></i>${CreateUser==null?"Blog Fan":CreateUser} &nbsp;&nbsp;
+                <i class="glyphicon glyphicon-time"></i>${CreateTime=='/Date(-1893484800000)/'?"":$.modifiers.formatDate(CreateTime)}
+            </p>*@
+    </div>
+
+</script>
+
+<script src="~/Scripts/template.js" type="text/javascript"></script>
+<script src="~/Scripts/jquery.common.js" type="text/javascript"></script>
+<script type="text/javascript">
+    var PageIndex;
+    $(function () {
+        PageIndex = 1;
+        Page();
+    });
+
+    function Page() {
+        var Condition = [];
+        Condition.push({ 'Abstract': '一' });
+        Condition.push({ 'iOS': "123321" });
+
+        $.ajax({
+            url: '/Article/Pages',
+            dataType: 'json',
+            data: { conditions: Condition, pageIndex: PageIndex },
+            type: 'get',
+            success: function (data) {
+                if (data.status) {
+                    var articlelist = $("#articlelist");
+                    $.each(data.data, function (index, element) {
+                        articlelist.append(TrimPath.processDOMTemplate("dataTmpl", element));
+                    });
+                } else {
+                    $("#more").attr("class", "btn btn-default").text("没有更多了");
+                }
+            },
+            error: function (data) {
+            }
+        });
+    }
+
+    (function ($) {
+        $.extend({
+            formatDate: {
+                /**
+                 * 当前时间戳
+                 * return <int>        unix时间戳(秒)
+                 */
+                CurTime: function () {
+                    return Date.parse(new Date()) / 1000;
+                },
+                /**
+                 * 日期 转换为 Unix时间戳
+                 * param <string> 2014-01-01 20:20:20  日期格式
+                 * return <int>        unix时间戳(秒)
+                 */
+                DateToUnix: function (string) {
+                    var f = string.split(' ', 2);
+                    var d = (f[0] ? f[0] : '').split('-', 3);
+                    var t = (f[1] ? f[1] : '').split(':', 3);
+                    return (new Date(
+                            parseInt(d[0], 10) || null,
+                            (parseInt(d[1], 10) || 1) - 1,
+                            parseInt(d[2], 10) || null,
+                            parseInt(t[0], 10) || null,
+                            parseInt(t[1], 10) || null,
+                            parseInt(t[2], 10) || null
+                            )).getTime() / 1000;
+                },
+                /**
+                 * 时间戳转换日期
+                 * param <int> unixTime    待时间戳(秒)
+                 * param <bool> isFull    返回完整时间(Y-m-d 或者 Y-m-d H:i:s)
+                 * param <int>  timeZone   时区
+                 */
+                UnixToDate: function (unixTime, isFull, timeZone) {
+                    if (typeof (timeZone) == 'number') {
+                        unixTime = parseInt(unixTime) + parseInt(timeZone) * 60 * 60;
+                    }
+                    var strT = unixTime.toString().substring(6, 19) * 1;  //转换成整数
+
+                    var time = new Date(parseInt(unixTime.replace("/Date(", "").replace(")", ""), 10));
+                    var ymdhis = "";
+                    ymdhis += time.getFullYear() + "-";
+                    ymdhis += (time.getMonth() + 1) + "-";
+                    ymdhis += time.getDate() + " ";
+                    ymdhis += time.getHours() + ":";
+                    ymdhis += time.getMinutes() + ":";
+                    ymdhis += time.getSeconds();
+                    if (isFull === true) {
+                        ymdhis += " " + time.getUTCHours() + ":";
+                        ymdhis += time.getUTCMinutes() + ":";
+                        ymdhis += time.getUTCSeconds();
+                    }
+                    return ymdhis;
+                }
+            }
+        });
+    })(jQuery);
+</script>
