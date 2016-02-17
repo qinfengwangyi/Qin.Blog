@@ -1086,9 +1086,9 @@
       <Project>{0e214b09-5a7e-4bb0-8a47-fca75bcdb970}</Project>
       <Name>Qin.Blog.Extentions</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Qin.Blog.ISerivce\Qin.Blog.ISerivce.csproj">
-      <Project>{a17a309d-50ab-49a7-9977-547e114c8739}</Project>
-      <Name>Qin.Blog.ISerivce</Name>
+    <ProjectReference Include="..\Qin.Blog.IService\Qin.Blog.IService.csproj">
+      <Project>{4a20bcba-6e4e-4d84-801e-050f23a8c0a1}</Project>
+      <Name>Qin.Blog.IService</Name>
     </ProjectReference>
     <ProjectReference Include="..\Qin.Blog.Service\Qin.Blog.Service.csproj">
       <Project>{6438dfba-c99c-4de5-b2ad-1dfea04aa023}</Project>

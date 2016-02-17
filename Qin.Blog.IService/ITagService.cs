@@ -5,9 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Qin.Blog.ISerivce
+namespace Qin.Blog.IService
 {
-    public interface ILeaveMessageService : IServiceBase<LeaveMessage>
+    public interface ITagService : IServiceBase<Tag>
     {
+        
     }
 }

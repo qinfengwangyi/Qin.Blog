@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{A17A309D-50AB-49A7-9977-547E114C8739}</ProjectGuid>
+    <ProjectGuid>{4A20BCBA-6E4E-4D84-801E-050F23A8C0A1}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Qin.Blog.ISerivce</RootNamespace>
-    <AssemblyName>Qin.Blog.ISerivce</AssemblyName>
+    <RootNamespace>Qin.Blog.IService</RootNamespace>
+    <AssemblyName>Qin.Blog.IService</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -49,9 +49,17 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Qin.Blog.Dao\Qin.Blog.Dao.csproj">
+      <Project>{54686ee2-1563-4737-bb69-51a23576635d}</Project>
+      <Name>Qin.Blog.Dao</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Qin.Blog.Entity\Qin.Blog.Entity.csproj">
       <Project>{a510ae7b-5ca8-41da-82b7-00de49d14092}</Project>
       <Name>Qin.Blog.Entity</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Qin.Blog.IDao\Qin.Blog.IDao.csproj">
+      <Project>{6f15ea51-c4da-4ea7-9296-115e48181ab6}</Project>
+      <Name>Qin.Blog.IDao</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

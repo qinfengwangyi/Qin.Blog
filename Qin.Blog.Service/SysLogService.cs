@@ -1,7 +1,7 @@
 ﻿using Qin.Blog.Dao;
 using Qin.Blog.Entity;
 using Qin.Blog.IDao;
-using Qin.Blog.ISerivce;
+using Qin.Blog.IService;
 using System;
 using System.Collections.Generic;
 using System.Linq;

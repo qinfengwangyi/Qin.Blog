@@ -60,9 +60,9 @@
       <Project>{6f15ea51-c4da-4ea7-9296-115e48181ab6}</Project>
       <Name>Qin.Blog.IDao</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Qin.Blog.ISerivce\Qin.Blog.ISerivce.csproj">
-      <Project>{a17a309d-50ab-49a7-9977-547e114c8739}</Project>
-      <Name>Qin.Blog.ISerivce</Name>
+    <ProjectReference Include="..\Qin.Blog.IService\Qin.Blog.IService.csproj">
+      <Project>{4a20bcba-6e4e-4d84-801e-050f23a8c0a1}</Project>
+      <Name>Qin.Blog.IService</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -1,6 +1,6 @@
 ﻿using Qin.Blog.Entity;
 using Qin.Blog.Extentions;
-using Qin.Blog.ISerivce;
+using Qin.Blog.IService;
 using Qin.Blog.Service;
 using Qin.Blog.Web.Filter;
 using System;
