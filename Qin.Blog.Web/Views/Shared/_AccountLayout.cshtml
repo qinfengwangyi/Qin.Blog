@@ -1,0 +1,93 @@
+﻿@using System.Web.Optimization;
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+    <meta name="keywords" content="前端,前端汇聚地,前端笔记,随笔,visualtec" />
+    <meta name="description" content="欢迎来到前端汇聚地，在这里与您分享前端技术、随笔美文！欢迎加入QQ技术分享群:454158799。咨询邮箱——Email:qinfengwangyi@163.com" />
+    <meta name="renderer" content="webkit">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <!--优先使用 IE 最新版本和 Chrome-->
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <!--禁止百度SiteApp转码-->
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <link rel="shortcut icon" href="images/end.ico" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="~/Content/src/scss/bts/stylesheets/personbt.css" />
+    <link rel="stylesheet" type="text/css" href="~/Content/src/scss/index.css" />
+    <link href="~/Content/common/css/accountcm.css" rel="stylesheet" />
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/Content/commonjs")
+    <script src="~/Scripts/QAlert.js"></script>
+    <title>前端汇聚地</title>
+</head>
+<body>
+    <div class="header">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <a href="/">
+                        <img class="img-responsive" src="~/Content/src/images/logo.png" />
+                    </a>
+                    <p>欢迎来到VisualTec，与你分享前端技术</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <nav class="navbar navbar-default" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <div class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </div>
+            </div>
+            <div class="navbar-collapse nostyle collapse">
+                <ul class="nav navbar-nav inner">
+                    <li>
+                        <a href="/" data-typeid="0">首页</a>
+                    </li>
+                    <li class="navactive">
+                        <a href="@Url.Action("Index", "Account")">个人中心</a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("AddArticle", "Home")">添加文章</a>
+                    </li>
+                </ul>
+                <div class="pull-right loginRegister">
+                    <a class="logout" href="@Url.Action("Logout", "Account")">注销</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="contentWrap">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    @RenderBody()
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer class="footer">
+        <div class="container">
+            <p class="aWrap">
+                <a href="#">网站简介</a>
+                <a href="#">网站使用说明</a>
+                <a href="#">关于我们</a>
+            </p>
+            <p class="copyR">Copyright © 2015 VisualTec，Technology Support By Keefe<br />Email：qinfengwangyi@163.com</p>
+        </div>
+
+    </footer>
+</body>
+</html>
+<script>
+    $(function () {
+        $(".navbar-toggle").on("click", function () {
+            $(this).toggleClass("collapsed");
+        })
+    })
+</script>

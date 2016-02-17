@@ -1,0 +1,132 @@
+﻿
+.accountbody {
+    background-color: #fff;
+    padding: 30px 0;
+}
+
+.myrow {
+    padding: 10px 10px;
+}
+
+    .myrow h3 {
+        text-align: center;
+    }
+
+label {
+    font-weight: normal;
+    text-align: right;
+    width: 100%;
+    line-height: 35px;
+}
+
+.cm-input {
+    border-radius: 4px;
+    width: 30%;
+    height: 45px;
+    padding: 6px 12px;
+    border: 1px solid #ccc;
+}
+
+.title {
+    width: 70%;
+}
+
+.abstract {
+    width: 70%;
+    height: 100px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+
+.tag {
+    width: 80%;
+}
+
+.infowrap {
+    width: 100%;
+    height: 100%;
+}
+
+    .infowrap h3 {
+        font-size: 18px;
+        font-weight: bold;
+        text-align: center;
+    }
+
+    .infowrap input{
+        width: 80%;
+    }
+
+.taglist {
+    position: absolute;
+    z-index: 999;
+    top: -210px;
+    width: 200px;
+    height: 200px;
+    background-color: #f2f2f2;
+    border-radius: 4px;
+    padding: 5px;
+    display: none;
+}
+
+    .taglist::after {
+        position: absolute;
+        content: '';
+        top: 200px;
+        left: 50px;
+        width: 0px;
+        height: 0px;
+        border: 10px solid;
+        border-color: #f2f2f2 transparent transparent transparent;
+    }
+
+    .taglist span {
+        display: inline-block;
+        background-color: #ccc;
+        margin: 5px 5px;
+        padding: 2px;
+        border-radius: 4px;
+        font-size: 16px;
+        color: #fff;
+        cursor: pointer;
+    }
+
+        .taglist span.added {
+            background-color: #FFF09D;
+            color: #fc3e24;
+        }
+
+    .taglist:hover {
+        display: block;
+    }
+
+.addtag {
+    width: 60%;
+}
+
+    .addtag:hover + .taglist {
+        display: block;
+    }
+
+
+
+.input-usr {
+    width: 80%;
+}
+
+.input-readonly {
+    border: none;
+}
+
+
+.editinfo {
+
+}
+
+
+.a-edit {
+    display: inline-block;
+    border: 1px solid;
+    border-radius: 4px;
+    margin-left: 8px;
+}

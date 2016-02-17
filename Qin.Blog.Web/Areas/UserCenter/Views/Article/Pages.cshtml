@@ -1,0 +1,202 @@
+﻿@{
+    ViewBag.Title = "Pages";
+
+}
+
+<h2>Article Pages</h2>
+<div class="portlet box green">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="fa fa-cogs"></i>Responsive Flip Scroll Tables
+        </div>
+        <div class="tools">
+            <a href="javascript:;" class="collapse" data-original-title="" title="">
+            </a>
+            <a href="#portlet-config" data-toggle="modal" class="config" data-original-title="" title="">
+            </a>
+            <a href="javascript:;" class="reload" data-original-title="" title="">
+            </a>
+            <a href="javascript:;" class="remove" data-original-title="" title="">
+            </a>
+        </div>
+    </div>
+    <div class="portlet-body flip-scroll">
+        <table class="table table-bordered table-striped table-condensed flip-content">
+            <thead class="flip-content">
+                <tr>
+                    <th width="20%">
+                        Code
+                    </th>
+                    <th>
+                        Company
+                    </th>
+                    <th class="numeric">
+                        Price
+                    </th>
+                    <th class="numeric">
+                        Change
+                    </th>
+                    <th class="numeric">
+                        Change %
+                    </th>
+                    <th class="numeric">
+                        Open
+                    </th>
+                    <th class="numeric">
+                        High
+                    </th>
+                    <th class="numeric">
+                        Low
+                    </th>
+                    <th class="numeric">
+                        Volume
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        AAC
+                    </td>
+                    <td>
+                        AUSTRALIAN AGRICULTURAL COMPANY LIMITED.
+                    </td>
+                    <td class="numeric">
+                        &nbsp;
+                    </td>
+                    <td class="numeric">
+                        -0.01
+                    </td>
+                    <td class="numeric">
+                        -0.36%
+                    </td>
+                    <td class="numeric">
+                        $1.39
+                    </td>
+                    <td class="numeric">
+                        $1.39
+                    </td>
+                    <td class="numeric">
+                        &nbsp;
+                    </td>
+                    <td class="numeric">
+                        9,395
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        AAX
+                    </td>
+                    <td>
+                        AUSENCO LIMITED
+                    </td>
+                    <td class="numeric">
+                        $4.00
+                    </td>
+                    <td class="numeric">
+                        -0.04
+                    </td>
+                    <td class="numeric">
+                        -0.99%
+                    </td>
+                    <td class="numeric">
+                        $4.01
+                    </td>
+                    <td class="numeric">
+                        $4.05
+                    </td>
+                    <td class="numeric">
+                        $4.00
+                    </td>
+                    <td class="numeric">
+                        90,641
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        ABY
+                    </td>
+                    <td>
+                        ADITYA BIRLA MINERALS LIMITED
+                    </td>
+                    <td>
+                        $0.77
+                    </td>
+                    <td>
+                        +0.02
+                    </td>
+                    <td>
+                        2.00%
+                    </td>
+                    <td>
+                        $0.76
+                    </td>
+                    <td>
+                        $0.77
+                    </td>
+                    <td>
+                        $0.76
+                    </td>
+                    <td>
+                        <a href="#">content</a><a href="#">content</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="myPager">
+    <ul>
+        <li><a href="javascript:;" class="firstbtn">首页</a></li>
+        <li><a href="javascript:;" class="prebtn"><</a></li>
+        <li><input placeholder="1 of 10" /></li>
+        <li><a href="javascript:;" class="nextbtn">></a></li>
+        <li><a href="javascript:;" class="endbtn">尾页</a></li>
+    </ul>
+</div>
+<script type="text/html"></script>
+<script src="~/Scripts/jquery.common.js"></script>
+<script type="text/javascript">
+    var index = 1;
+    var total = 0;
+    $(function () {
+        $(".myPager .firstbtn").click(function () {
+            Pages(1);
+        });
+        $(".myPager .prebtn").click(function () {
+            index--;
+            if (index > 1) {
+                Pages(index);
+            }
+        });
+        $(".myPager .nextbtn").click(function () {
+            index++;
+            if (total != 0 && index == total) {
+                return;
+            }
+            Pages(index);
+        });
+        $(".myPager .endbtn").click(function () {
+            if (total != 0) {
+                Pages(index);
+            }
+        });
+    });
+
+    function Pages(index) {
+
+        $.ajax({
+            url: '/UserCenter/Article/Pages',
+            type: 'post',
+            datatype: 'json',
+            data: { pageIndex: index },
+            success: function (data) {
+
+            },
+            error: function (data) {
+                //
+            }
+        });
+    }
+</script>

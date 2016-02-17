@@ -1,0 +1,58 @@
+﻿@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_LoginLayout.cshtml";
+}
+<div class="loginW">
+    <div class="container">
+        <div class="contentW">
+            <div class="head clearfix">
+                <span class="pull-left">登陆</span>
+                <span class="pull-right"></span>
+            </div>
+            <i></i>
+            <input class="form-control" type="text" placeholder="用户名" name="username" />
+            <input class="form-control" type="password" placeholder="密码" name="password" />
+            <input class="form-control" type="submit" value="登陆" onclick="Login()"/>
+            <div class="error">&nbsp;</div>
+        </div>
+    </div>
+</div>
+<script>
+    var usr = $("[name=username]");
+    var pwd = $("[name=password]");
+    var tip = $(".error");
+    jQuery(document).ready(function () {
+
+        pwd.keydown(function (e) {
+            if (e.which == 13) {
+                Login();
+            }
+        });
+    });
+    function Login() {
+        if (!usr.val()) {
+            tip.text("Username can not be empty");
+            return;
+        }
+        if (!pwd.val()) {
+            tip.text("Password can not be empty");
+            return;
+        }
+        $.ajax({
+            url: 'Login',
+            type: 'Post',
+            dataType: 'Json',
+            data: { userName: usr.val(), passWord: $.md5(pwd.val()) },
+            success: function (data) {
+                if (data.status) {
+                    window.location.href = '@Url.Action("/", new { Area = "UserCenter" })';
+                } else {
+                    tip.show();
+                    tip.text(data.message);
+                }
+            }
+        });
+    }
+</script>
+
+

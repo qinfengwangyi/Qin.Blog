@@ -1,0 +1,35 @@
+﻿@{
+    ViewBag.Title = "TagHtml";
+}
+@model List<Qin.Blog.Entity.Tag>
+@*@if (Model != null && Model.Count > 0)
+{
+    <div class="widget">
+        <h4 class="title">标签云</h4>
+        <div class="content tag-cloud">
+            @foreach (var item in Model)
+            {
+                <a href="@Url.Action("TagPages", "Article")">@item.TagName</a>
+            }
+        </div>
+    </div>
+}
+else
+{*@
+    <div class="widget">
+        <h4 class="title">标签云</h4>
+        <div class="content tag-cloud">
+            <a href="#">HTML/CSS</a>
+            <a href="#">JavaScript</a>
+            <a href="#">CSS3</a>
+            <a href="#">HTML5</a>
+            <a href="#">JQUERY</a>
+            <a href="#">AngularJS</a>
+            <a href="#">Node.js</a>
+            <a href="#">Bootstrap</a>
+            <a href="#">ASP.NET</a>
+        </div>
+    </div>
+@*}*@
+
+

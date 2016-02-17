@@ -1,0 +1,43 @@
+﻿
+<nav class="navbar navbar-default" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <div class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </div>
+        </div>
+        <div class="navbar-collapse nostyle collapse">
+            <ul class="nav navbar-nav  inner">
+                <li class="@(ViewBag.Navactive ?? "navactive")">
+                    <a href="/" data-typeid="0">首页</a>
+                </li>
+                <li class="@(ViewBag.Navactive == "1" ? "navactive" : "")">
+                    <a href="/?index=1">前端</a>
+                </li>
+                <li class="@(ViewBag.Navactive == "2" ? "navactive" : "")">
+                    <a href="/?index=2">.NET</a>
+                </li>
+                <li class="@(ViewBag.Navactive == "3" ? "navactive" : "")">
+                    <a href="/?index=3">随笔</a>
+                </li>
+                <li class="@(ViewBag.Navactive == "4" ? "navactive" : "")">
+                    <a href="@Url.Action("Index", "LeaveMessage")">留言</a>
+                </li>
+            </ul>
+            <div class="pull-right loginRegister">
+                @if (ViewBag.User == null)
+                {
+                    <a class="login" href="@Url.Action("Login", "Account")">登录</a>
+                    <a class="register" href="@Url.Action("Register", "Account")">注册</a>
+                }
+                else
+                {
+                    <a class="logout" href="@Url.Action("Logout", "Account")">注销</a>
+                }
+            </div>
+        </div>
+    </div>
+</nav>

@@ -1,0 +1,95 @@
+﻿@{
+    ViewBag.Title = "Register";
+    Layout = "~/Views/Shared/_LoginLayout.cshtml";
+}
+<div class="loginW" style="padding-bottom: 340px;">
+    <div class="container">
+        <div class="contentW">
+            <div class="look-around"><a href="/">先看看</a></div>
+            <div class="head clearfix">
+                <span class="pull-left">注册</span>
+                <span class="pull-right"><a href="@Url.Action("Login")">已有账号？立即登陆</a></span>
+            </div>
+            <i></i>
+            <input class="form-control" type="text" placeholder="用户名" name="username" onkeyup="value = value.replace(/[^\w\.\/]/ig, '')" />
+            <input class="form-control" type="password" placeholder="密码" name="password" />
+            <input class="form-control" type="password" placeholder="确认密码" name="repassword" />
+            <input id="submit" class="form-control" type="submit" value="注册" onclick="Register()" />
+            <div class="error">&nbsp;</div>
+        </div>
+    </div>
+</div>
+<script>
+    var usr = $("[name=username]");
+    var pwd = $("[name=password]");
+    var repwd = $("[name=repassword]");
+    var tip = $(".error");
+
+    jQuery(document).ready(function () {
+        repwd.keydown(function (e) {
+            if (e.which == 13) {
+                Register();
+            }
+        });
+
+        usr.on("change", function () {
+            if (usr.val() && usr.val().trim()) {
+                $.ajax({
+                    url: 'CheckUserName',
+                    type: 'get',
+                    dataType: 'Json',
+                    data: { userName: usr.val() },
+                    success: function (data) {
+                        if (data.status) {
+                            tip.css({ "color": "red" });
+                            tip.text(data.message);
+                            $("#submit").prop({ "disabled": true });
+                        } else {
+                            tip.text("The user name can be registered");
+                            tip.css({ "color": "green" });
+                            $("#submit").prop({ "disabled": false });
+                        }
+                    }
+                });
+            }
+        });
+    });
+
+    function Register() {
+        if (!usr.val()) {
+            tip.css({ "color": "red" });
+            tip.text("Username can not be empty");
+            return;
+        }
+        if (!pwd.val() || !repwd.val()) {
+            tip.css({ "color": "red" });
+            tip.text("Password can not be empty");
+            return;
+        }
+        if (!(pwd.val() == repwd.val())) {
+            tip.css({ "color": "red" });
+            tip.html("Enter the password must be consistent");
+            return;
+        }
+        $.ajax({
+            url: 'Register',
+            type: 'Post',
+            dataType: 'Json',
+            data: { userName: usr.val(), passWord: $.md5(pwd.val()) },
+            success: function (data) {
+                if (data.status) {
+                    usr.val('');
+                    pwd.val('');
+                    repwd.val('');
+                    tip.html('');
+                    alert(data.message);
+                    window.location.href = '@Url.Action("Login")';
+                } else {
+                    tip.text(data.message);
+                }
+            }
+        });
+    }
+</script>
+
+

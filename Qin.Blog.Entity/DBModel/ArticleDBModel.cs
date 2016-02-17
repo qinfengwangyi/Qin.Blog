@@ -1,0 +1,82 @@
+﻿using Qin.Blog.Extentions;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Qin.Blog.Entity.DBModel
+{
+    public class ArticleDBModel : BaseEntity
+    {
+
+        /// <summary>
+        /// 类型ID
+        /// </summary>
+        public string TypeId { get; set; }
+
+        /// <summary>
+        /// 文章标题
+        /// </summary>
+        public string Title { get; set; }
+
+        /// <summary>
+        /// 标签
+        /// </summary>
+        public string Tag { get; set; }
+
+        /// <summary>
+        /// 是否置顶
+        /// </summary>
+        public int IsTop { get; set; }
+
+        /// <summary>
+        /// 文章摘要
+        /// </summary>
+        public string Abstract { get; set; }
+
+        /// <summary>
+        /// 图片
+        /// </summary>
+        public string Pics { get; set; }
+
+        /// <summary>
+        /// 文章内容
+        /// </summary>
+        public string Content { get; set; }
+
+        /// <summary>
+        /// 浏览量
+        /// </summary>
+        public int ViewCount { get; set; }
+
+        /// <summary>
+        /// 给力
+        /// </summary>
+        public int Praise { get; set; }
+
+        /// <summary>
+        /// 不给力
+        /// </summary>
+        public int Contempt { get; set; }
+
+        //UserInfo
+
+        public string UserId { get; set; }
+
+        /// <summary>
+        /// 用户昵称
+        /// </summary>
+        public string NickName { get; set; }
+
+        /// <summary>
+        /// 用户名称
+        /// </summary>
+        public string UserName { get; set; }
+
+        /// <summary>
+        /// 用户性别
+        /// </summary>
+        public int Sex { get; set; }
+    }
+}

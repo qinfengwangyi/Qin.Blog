@@ -1,0 +1,231 @@
+﻿@{
+    Layout = "~/Views/Shared/_AccountLayout.cshtml";
+    ViewBag.Title = "编辑文章";
+}
+
+<div class="accountbody">
+    <form id="form1" action="/Article/Insert" method="post">
+        <div class="row myrow">
+            <div class="col-md-2 col-sm-2 col-xs-3">
+                <label>文章分类：</label>
+            </div>
+            <div class="col-md-10 col-sm-10 col-xs-9">
+                <select id="TypeId" name="TypeId" class="cm-input"></select>
+                <input type="button" name="addtype" value="添加分类" class="btn btn-primary" />
+            </div>
+        </div>
+        <div class="row myrow">
+            <div class="col-md-2 col-sm-2 col-xs-3">
+                <label>是否置顶：</label>
+            </div>
+            <div class="col-md-10 col-sm-10 col-xs-9">
+                <select name="IsTop" class="cm-input">
+                    <option value="0" selected>否</option>
+                    <option value="1">是</option>
+                </select>
+            </div>
+        </div>
+        <div class="row myrow">
+            <div class="col-md-2 col-sm-2 col-xs-3">
+                <label>文章标题：</label>
+            </div>
+            <div class="col-md-10 col-sm-10 col-xs-9">
+                <input name="Title" class="cm-input title" required />
+            </div>
+        </div>
+        <div class="row myrow">
+            <div class="col-md-2 col-sm-2 col-xs-3">
+                <label>图片：</label>
+            </div>
+            <div class="col-md-10 col-sm-10 col-xs-9">
+                <input name="Pics" class="form-control" type="hidden" />
+                <div class="col-md-4" id="uploader-demo">
+                    <!--用来存放item-->
+                    <div id="fileList" class="uploader-list"></div>
+                    <div id="filePicker">选择图片</div>
+                </div>
+                <div class="col-md-6">
+                    <label id="filetip" class="label label-default">default</label>
+                </div>
+            </div>
+        </div>
+        <div class="row myrow">
+            <div class="col-md-2 col-sm-2 col-xs-3">
+                <label>文章摘要：</label>
+            </div>
+            <div class="col-md-10 col-sm-10 col-xs-9">
+                <textarea name="Abstract" class="abstract" required></textarea>
+            </div>
+        </div>
+        <div class="row myrow">
+            <div class="col-md-2">
+                <label>文章内容：</label>
+            </div>
+            <div class="col-md-10">
+                <script id="Content" name="Content"></script>
+            </div>
+        </div>
+        <div class="row myrow">
+            <div class="col-md-2 col-sm-2 col-xs-3">
+                <label>文章标签：</label>
+            </div>
+            <div class="col-md-6 col-sm-6 col-xs-6">
+                <input name="Tag" class="cm-input tag" readonly="readonly" />
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-3">
+                <input type="button" class="cm-input btn btn-success addtag" value="添加标签" />
+                <div class="taglist">
+                </div>
+            </div>
+        </div>
+        <div class="row myrow" style="text-align:center;">
+            <button type="submit" id="save" class="btn btn-primary">保存</button>&nbsp;&nbsp;&nbsp;&nbsp;
+            <button type="reset" class="btn">取消</button>
+        </div>
+    </form>
+</div>
+
+<div style="display: none;" id="articletype">
+    <div class="infowrap">
+        <form action="@Url.Action("Insert", "ArticleType")" method="post">
+            <div class="row myrow">
+                <div class="col-md-12">
+                    <h3>添加文章类型</h3>
+                </div>
+            </div>
+            <div class="row myrow">
+                <div class="col-md-4">
+                    <label>类型名称：</label>
+                </div>
+                <div class="col-md-8">
+                    <input name="TypeName" class="cm-input" required />
+                </div>
+            </div>
+            <div class="row myrow">
+                <div class="col-md-4">
+                    <label>备注：</label>
+                </div>
+                <div class="col-md-8">
+                    <input name="Mark" class="cm-input" required />
+                </div>
+            </div>
+            <div class="row myrow">
+                <div class="col-md-12" style="text-align:center;padding-top: 20px;">
+                    <button type="button" id="cancel" class="btn btn-danger" onclick="Qin.remove()">取消</button>
+                    <button type="reset" class="btn btn-default">重置</button>
+                    <button type="submit" class="btn btn-primary">保存</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="~/Content/ueditor/ueditor.config.js"></script>
+<script src="~/Content/ueditor/ueditor.all.js"></script>
+<script src="~/Content/WebUploader/webuploader.js"></script>
+<link href="~/Content/WebUploader/webuploader.css" rel="stylesheet" />
+<script type="text/javascript">
+    var ueditor = UE.getEditor('Content', {
+        autoHeightEnabled: false,
+        initialFrameHeight: 600
+    });
+
+    //Get ArticleType
+    function GetArticleType() {
+        var articleType = $("#TypeId");
+        $.getJSON("/ArticleType/TypeList", function (data) {
+            if (data.status) {
+                $.each(data.data, function () {
+                    $("<option/>").val(this.Id).text(this.TypeName).appendTo(articleType);
+                });
+            } else {
+                $("<option/>").val("0").text("未分类(暂无文章分类)").appendTo(articleType);
+            }
+        });
+    }
+
+    //Get TagList
+    function GetTagList() {
+        $.getJSON("@Url.Action("GetList", "Tag")", function (data) {
+            if (data.status) {
+                $.each(data.data, function () {
+                    $(".taglist").append("<span>" + this.TagName + "</span>");
+                });
+                $(".taglist span").click(function () {
+                    if (!$(this).prop("class")) {
+                        $(this).addClass("added");
+                        $("[name=Tag]").val(getTagStr());
+                    } else {
+                        $(this).removeClass("added");
+                        $("[name=Tag]").val(getTagStr());
+                    }
+                });
+            } else {
+                $(".taglist").append("<span style='disable:disabled'>暂时没有标签</span>");
+            }
+        });
+    }
+
+    //get tags name
+    function getTagStr() {
+        var tagstr = "";
+        $.each($(".taglist span"), function (index, e) {
+            if (!!$(this).prop("class"))
+                tagstr += $(this).text() + ",";
+        });
+        tagstr = tagstr.substring(0, tagstr.length - 1);
+        return tagstr;
+    }
+
+
+    $(function () {
+        GetArticleType();
+
+        //add articletype
+        $("[name=addtype]").click(function () {
+            Qin.CreateMaskDiv($("#articletype").html(), 600, 300);
+        });
+
+        GetTagList();
+
+    });
+
+    var uploader = new WebUploader.Uploader({
+        swf: '/Content/WebUploader/Uploader.swf',
+        auto: true,
+        server: '/Deal/UploadImage.ashx',
+        pick: '#filePicker',
+        accept: {
+            title: 'Images',
+            extensions: 'gif,jpg,jpeg,bmp,png',
+            mimeTypes: 'image/*'
+        },
+        //thumb: {
+        //    width: 110,
+        //    height: 110,
+
+        //    // 图片质量，只有type为`image/jpeg`的时候才有效。
+        //    quality: 70,
+
+        //    // 是否允许放大，如果想要生成小图的时候不失真，此选项应该设置为false.
+        //    allowMagnify: true,
+
+        //    // 是否允许裁剪。
+        //    crop: true,
+
+        //    // 为空的话则保留原有图片格式。
+        //    // 否则强制转换成指定的类型。
+        //    type: 'image/jpeg'
+        //}
+    });
+
+    uploader.on('uploadSuccess', function (file, response) {
+        if (eval('(' + response._raw + ')').result) {
+            $("#filetip").html(file.name);
+            $("[name=Pics]").val(response.pics);
+        } else {
+            alert(eval('(' + response._raw + ')').msg);
+        }
+    });
+
+</script>
