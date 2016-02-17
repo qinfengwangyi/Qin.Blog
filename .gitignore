@@ -1,0 +1,6 @@
+Qin.Blog.Common/bin/Debug/Qin.Blog.Common.dll
+*.cache
+packages/Modernizr.2.6.2/Tools/common.ps1
+Qin.Blog.Web/Web.config
+Qin.Blog.Web/Web.Release.config
+Qin.Blog.Web/Web.Debug.config
