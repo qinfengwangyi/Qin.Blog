@@ -1,5 +1,6 @@
 bin/
 obj/
+logs/
 
 *.cache
 packages/Modernizr.2.6.2/Tools/common.ps1
