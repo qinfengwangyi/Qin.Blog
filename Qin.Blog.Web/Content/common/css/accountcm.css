@@ -12,7 +12,7 @@
         text-align: center;
     }
 
-label {
+.accountbody .myrow label {
     font-weight: normal;
     text-align: right;
     width: 100%;

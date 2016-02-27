@@ -8,8 +8,8 @@ using System.Threading.Tasks;
 
 namespace Qin.Blog.IService
 {
-    public interface ILeaveMessageService : IServiceBase<LeaveMessage>
+    public interface ICommentService:IServiceBase<Comment>
     {
-        List<LeaveMsgDBModel> LeaveMsgPages(int pageIndex, int pageSize, string conditions, out int total);
+        List<CommentDBModel> CommentPages(int pageIndex, int pageSize, string articleId, out int total);
     }
 }

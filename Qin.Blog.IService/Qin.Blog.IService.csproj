@@ -41,6 +41,7 @@
   <ItemGroup>
     <Compile Include="IArticleService.cs" />
     <Compile Include="IArticleTypeService.cs" />
+    <Compile Include="ICommentService.cs" />
     <Compile Include="ILeaveMessageService.cs" />
     <Compile Include="IServiceBase.cs" />
     <Compile Include="ISysLogService.cs" />

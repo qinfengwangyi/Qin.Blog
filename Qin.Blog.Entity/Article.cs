@@ -61,5 +61,10 @@ namespace Qin.Blog.Entity
         /// </summary>
         public int Contempt { get; set; }
 
+        /// <summary>
+        /// 用户ID
+        /// </summary>
+        public string UserId { get; set; }
+
     }
 }

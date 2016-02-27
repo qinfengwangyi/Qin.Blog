@@ -44,6 +44,8 @@
     <Compile Include="BaseEntity.cs" />
     <Compile Include="Comment.cs" />
     <Compile Include="DBModel\ArticleDBModel.cs" />
+    <Compile Include="DBModel\CommentDBModel.cs" />
+    <Compile Include="DBModel\LeaveMsgDBModel.cs" />
     <Compile Include="Enums\Sex.cs" />
     <Compile Include="Enums\Operator.cs" />
     <Compile Include="Enums\SqlJoin.cs" />

@@ -8,9 +8,8 @@ using System.Threading.Tasks;
 
 namespace Qin.Blog.IDao
 {
-    public interface ILeaveMessageDao: IDaoBase<LeaveMessage>
+    public interface ICommentDao:IDaoBase<Comment>
     {
-
-        List<LeaveMsgDBModel> LeaveMsgPages(int pageIndex, int pageSize, string conditions, out int total);
+        List<CommentDBModel> CommentPages(int pageIndex, int pageSize, string articleId, out int total);
     }
 }

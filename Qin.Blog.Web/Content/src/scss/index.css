@@ -7,12 +7,15 @@ body {
     height: 180px;
 }
 
-    .header .container img {
-        margin: 20px 0;
+
+    .header .container .logo {
+        font-size: 48px;
+        color: #ffffff;
+        font-weight: normal;
+        padding: 10px 0;
     }
 
     .header .container p {
-        margin-left: 300px;
         font-size: 28px;
         color: #fff;
     }
@@ -424,9 +427,9 @@ footer.footer {
             overflow: hidden;
         }
 
-        .loginW .contentW .look-around a{
-            float: right;
-        }
+            .loginW .contentW .look-around a {
+                float: right;
+            }
 
         .loginW .contentW .head span:first-child {
             font-size: 18px;
@@ -529,16 +532,16 @@ footer.footer {
 
 /*leaveMessage start*/
 
-/*addleavmsg*/
-.addleavmsg {
+/*addleavemsg*/
+.addleavemsg {
     padding: 5px 15px;
 }
 
-    .addleavmsg h4 {
+    .addleavemsg h4 {
         font-size: 14px;
     }
 
-    .addleavmsg .msg-content {
+    .addleavemsg .msg-content {
         width: 100%;
         height: 120px;
         margin: 10px 0px;
@@ -563,13 +566,43 @@ footer.footer {
             font-size: 14px;
         }
 
+    .leavemsg-page .leavemsg .rmsg {
+        text-indent: 2em;
+        color: #666;
+        background-color: #f3f3f3;
+        border-radius: 4px;
+        padding: 4px 0px;
+        font-size: 13px;
+    }
+
+    .leavemsg-page .leavemsg p {
+        word-break: break-all;
+    }
+
+    .leavemsg-page .leavemsg .rmsg a {
+        cursor: pointer;
+        font-size: 13px;
+    }
+
+    .leavemsg-page .leavemsg .rmsg time {
+        color: #333;
+        padding-left: 20px;
+        font-size: 13px;
+        color: #aaaaaa;
+    }
+
     .leavemsg-page .leavemsg .msg {
+        border: 1px solid #e2e2e2;
         border-radius: 4px;
         height: 100px;
         width: 100%;
         padding: 5px 10px;
         margin: 10px 0px;
     }
+
+        .leavemsg-page .leavemsg .msg:focus {
+            border: 1px solid #fc3e24;
+        }
 
     .leavemsg-page .leavemsg .msgWrap {
         display: block;

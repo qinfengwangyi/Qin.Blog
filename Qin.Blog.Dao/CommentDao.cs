@@ -11,34 +11,27 @@ using System.Threading.Tasks;
 
 namespace Qin.Blog.Dao
 {
-    public class LeaveMessageDao : ILeaveMessageDao
+    public class CommentDao : ICommentDao
     {
         DataBase _DataBase = new DataBase();
 
-
-        public LeaveMessage GetById(string id)
+        public Comment GetById(string id)
         {
             throw new NotImplementedException();
         }
 
-
-        /// <summary>
-        /// 添加留言
-        /// </summary>
-        /// <param name="entity"></param>
-        /// <returns></returns>
-        public bool Insert(LeaveMessage model)
+        public bool Insert(Comment model)
         {
             if (model != null)
             {
-                if (_DataBase.InsertModel<LeaveMessage>(model))
+                if (_DataBase.InsertModel<Comment>(model))
                     return true;
                 return false;
             }
             return false;
         }
 
-        public int Update(LeaveMessage model)
+        public int Update(Comment model)
         {
             throw new NotImplementedException();
         }
@@ -53,33 +46,21 @@ namespace Qin.Blog.Dao
             throw new NotImplementedException();
         }
 
-        public List<LeaveMessage> GetList(out int total)
+        public List<Comment> GetList(out int total)
         {
             throw new NotImplementedException();
         }
 
-        public List<LeaveMessage> Pages(int pageIndex, int pageSize, string conditions, out int total)
+        public List<Comment> Pages(int pageIndex, int pageSize, string conditions, out int total)
         {
-            total = 0;
-            var sql = @"";
-            //var sql = @"SELECT * FROM leavemessage ORDER BY CreateTime DESC";
-            var sql_total = @"Select Count(*) From leavemessage;";
-            MySqlParameter[] paraList = new MySqlParameter[]
-            {
-                new MySqlParameter("@PageIndex", --pageIndex * pageSize),
-                new MySqlParameter("@PageSize", pageSize)
-            };
-
-            var list = _DataBase.QueryList<LeaveMessage>(sql, paraList.ToList());
-            total = _DataBase.QueryTotal(sql_total, null); //查询总数
-            return list;
+            throw new NotImplementedException();
         }
 
-
-
-        public List<LeaveMsgDBModel> LeaveMsgPages(int pageIndex, int pageSize, string conditions, out int total)
+        public List<CommentDBModel> CommentPages(int pageIndex, int pageSize, string articleId, out int total)
         {
+            total = 0;
             var sql = @"SELECT
+							a.ArticleId,
 	                        a.Id,
 	                        a.ParentId,
 	                        a.Content,
@@ -96,20 +77,22 @@ namespace Qin.Blog.Dao
 	                        CASE WHEN b.CreateTime is NULL THEN a.CreateTime
 	                        ELSE b.CreateTime END as  PCreateTime
                         FROM
-	                        leavemessage a
-                        LEFT JOIN leavemessage b ON a.ParentId = b.Id
+	                        `comment` a
+                        LEFT JOIN `comment` b ON a.ParentId = b.Id
                         LEFT JOIN `user` c ON a.UserId = c.Id
                         LEFT JOIN `user` d ON b.UserId = d.Id
+                        WHERE a.ArticleId = @ArticleId
                         ORDER BY
-	                        a.CreateTime DESC LIMIT @PageIndex,@PageSize;";
+	                        a.CreateTime DESC LIMIT @PageIndex,@PageSize";
             var sql_total = @"Select Count(*) From leavemessage;";
             MySqlParameter[] paraList = new MySqlParameter[]
             {
+                new MySqlParameter("@ArticleId", articleId),
                 new MySqlParameter("@PageIndex", --pageIndex * pageSize),
                 new MySqlParameter("@PageSize", pageSize)
             };
 
-            var list = _DataBase.QueryList<LeaveMsgDBModel>(sql, paraList.ToList());
+            var list = _DataBase.QueryList<CommentDBModel>(sql, paraList.ToList());
             total = _DataBase.QueryTotal(sql_total, null); //查询总数
             return list;
         }

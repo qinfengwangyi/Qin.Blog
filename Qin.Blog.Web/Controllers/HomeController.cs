@@ -45,12 +45,12 @@ namespace Qin.Blog.Web.Controllers
         /// 网站首页
         /// </summary>
         /// <returns></returns>
-        public ActionResult Index(string index)
+        public ActionResult Index(int index = 0)
         {
             Session["Navindex"] = index;//导航
 
             int total = 0;
-            var list = _IArticleService.CategoryPage(1, 10, index, out total);
+            var list = _IArticleService.CategoryPage(1, 10, index.ToString(), out total);
             ViewBag.Total = total;
             ViewBag.Loaded = (total <= 10 ? total : 10);
             ViewBag.Index = index;

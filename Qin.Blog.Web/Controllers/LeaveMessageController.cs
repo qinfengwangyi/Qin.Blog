@@ -2,6 +2,7 @@
 using Qin.Blog.Extentions;
 using Qin.Blog.IService;
 using Qin.Blog.Service;
+using Qin.Blog.Web.Filter;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,9 +19,9 @@ namespace Qin.Blog.Web.Controllers
         // GET: LeaveMessage
         public ActionResult Index()
         {
-            Session["Navindex"] = "4";
+            Session["Navindex"] = 4;
             var total = 0;
-            var list = _ILeaveMessageService.Pages(1, 10, "", out total);
+            var list = _ILeaveMessageService.LeaveMsgPages(1, 10, "", out total);
             ViewBag.Total = total;
             ViewBag.Loaded = (total <= 10 ? total : 10);
             return View(list);
@@ -52,9 +53,9 @@ namespace Qin.Blog.Web.Controllers
             }
             if (_ILeaveMessageService.Insert(model))
             {
-                return new ActionReturn(true, "添加成功！", null);
+                return new ActionReturn(true, "留言成功！", null);
             }
-            return new ActionReturn(false, "添加失败！", null);
+            return new ActionReturn(false, "Oh，留言失败！请联系管理员...", null);
         }
 
         /// <summary>
@@ -64,24 +65,32 @@ namespace Qin.Blog.Web.Controllers
         /// <param name="parentId"></param>
         /// <returns></returns>
         [HttpPost]
+        //[LoginAuthorize]
         public ActionResult Reply(string content, string parentId = "0")
         {
-            LeaveMessage model = new LeaveMessage()
+            if (CUR_USER != null)
             {
-                Id = Guid.NewGuid().ToId(),
-                ParentId = parentId,
-                Content = content,
-                UserId = CUR_USER.Id,
-                CreateUser = CUR_USER.UserName,
-                CreateTime = DateTime.Now,
-                ModifyUser = CUR_USER.UserName,
-                ModifyTime = DateTime.Now
-            };
-            if (_ILeaveMessageService.Insert(model))
-            {
-                return new ActionReturn(true);
+                LeaveMessage model = new LeaveMessage()
+                {
+                    Id = Guid.NewGuid().ToId(),
+                    ParentId = parentId,
+                    Content = content,
+                    UserId = CUR_USER.Id,
+                    CreateUser = CUR_USER.UserName,
+                    CreateTime = DateTime.Now,
+                    ModifyUser = CUR_USER.UserName,
+                    ModifyTime = DateTime.Now
+                };
+                if (_ILeaveMessageService.Insert(model))
+                {
+                    return new ActionReturn(true, "回复成功！", null);
+                }
+                return new ActionReturn(false, "回复失败！", null);
             }
-            return new ActionReturn(false);
+            else
+            {
+                return new ActionReturn(false, "请先登录！", null);
+            }
         }
 
         /// <summary>
@@ -93,7 +102,7 @@ namespace Qin.Blog.Web.Controllers
         {
             int total = 0;
             pageIndex = pageIndex <= 1 ? 1 : pageIndex;
-            var list = _ILeaveMessageService.Pages(pageIndex, 10, "", out total);  //默认每页10条
+            var list = _ILeaveMessageService.LeaveMsgPages(pageIndex, 10, "", out total);  //默认每页10条
             if (list != null && list.Count > 0)
             {
                 return new PagesReturn(pageIndex, total, list, list.Count);

@@ -4,6 +4,7 @@ using Qin.Blog.Entity.DBModel;
 using Qin.Blog.Extentions;
 using Qin.Blog.IService;
 using Qin.Blog.Service;
+using Qin.Blog.Web.Filter;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +17,7 @@ namespace Qin.Blog.Web.Controllers
     public class ArticleController : BaseController
     {
         IArticleService _IArticleService = new ArticleService();
+        ICommentService _ICommentService = new CommentService();
 
 
         /// <summary>
@@ -101,9 +103,11 @@ namespace Qin.Blog.Web.Controllers
         /// <param name="model"></param>
         /// <returns></returns>
         [ValidateInput(false)]
+        [LoginAuthorize]
         public ActionResult Insert(Article model)
         {
             model.Id = Guid.NewGuid().ToString("N");
+            model.UserId = CUR_USER.Id;  //用户ID
             model.CreateTime = DateTime.Now;
             model.CreateUser = CUR_USER.UserName;
             model.ModifyTime = DateTime.Now;
@@ -119,7 +123,9 @@ namespace Qin.Blog.Web.Controllers
         /// <returns></returns>
         public ActionResult Detail(string id)
         {
+            int total = 0;
             ArticleDBModel model = _IArticleService.GetArticleById(id);
+            var commentList = _ICommentService.CommentPages(1, 10, id, out total);
             return View(model);
         }
 
@@ -129,6 +135,7 @@ namespace Qin.Blog.Web.Controllers
         /// <param name="article"></param>
         /// <returns></returns>
         [HttpPost]
+        [LoginAuthorize]
         public ActionResult Update(Article article)
         {
             article.ModifyTime = DateTime.Now;

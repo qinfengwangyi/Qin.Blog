@@ -48,6 +48,7 @@
   <ItemGroup>
     <Compile Include="ArticleDao.cs" />
     <Compile Include="ArticleTypeDao.cs" />
+    <Compile Include="CommentDao.cs" />
     <Compile Include="LeaveMessageDao.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SysLogDao.cs" />

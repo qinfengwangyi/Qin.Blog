@@ -38,7 +38,11 @@ namespace Qin.Blog.Web.Filter
         //     筛选器上下文。
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-
+            var user = filterContext.HttpContext.Session["CUR_USER"];
+            if (user == null)
+            {
+                filterContext.HttpContext.Response.Redirect("/Account/Login");
+            }
         }
         //
         // 摘要: 

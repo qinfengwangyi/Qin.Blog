@@ -1,5 +1,6 @@
 ﻿using Qin.Blog.Dao;
 using Qin.Blog.Entity;
+using Qin.Blog.Entity.DBModel;
 using Qin.Blog.IDao;
 using Qin.Blog.IService;
 using System;
@@ -47,6 +48,11 @@ namespace Qin.Blog.Service
         public List<LeaveMessage> Pages(int pageIndex, int pageSize, string conditions, out int total)
         {
             return _ILeaveMessageDao.Pages(pageIndex, pageSize, conditions, out total);
+        }
+
+        public List<LeaveMsgDBModel> LeaveMsgPages(int pageIndex, int pageSize, string conditions, out int total)
+        {
+            return _ILeaveMessageDao.LeaveMsgPages(pageIndex, pageSize, conditions, out total);
         }
     }
 }

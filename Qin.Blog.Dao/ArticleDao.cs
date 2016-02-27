@@ -20,10 +20,10 @@ namespace Qin.Blog.Dao
         private DateTime minTime = Convert.ToDateTime("1900-01-01");
 
         ILog log = log4net.LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
-        DataBase dataBase = new DataBase();
-        private string[] _1_WebFront = { "Html/CSS", "JavaScript" }; //对应导航栏的data-typeid:1
-        private string _2_ASP_NET = "ASP.NET";  //2
-        private string _3_Essay = "随笔";       //3
+        DataBase _DataBase = new DataBase();
+        private string[] _1_WebFront = { "Html/CSS", "JavaScript" }; //对应导航栏的【前端】
+        private string[] _2_BackStage = { "ASP.NET", "Sql" };  //2对应【后台】
+        private string _3_Essay = "随笔";       //3对应【随笔】
 
 
         /// <summary>
@@ -34,7 +34,7 @@ namespace Qin.Blog.Dao
         public Article GetById(string id)
         {
             Article model = new Article();
-            DataTable dt = dataBase.GetOnlyById4MySql<Article>(id, model).Tables[0];
+            DataTable dt = _DataBase.GetOnlyById4MySql<Article>(id, model).Tables[0];
             if (dt != null && dt.Rows.Count > 0)
             {
                 return FillData.FillDataToEntity(model, dt);
@@ -54,7 +54,7 @@ namespace Qin.Blog.Dao
         {
             var sql = @"Select a.*,b.NickName,b.Sex,b.UserName From article a LEFT JOIN user b ON a.UserId = b.Id Where 1=1 And a.Id = @Id;UPDATE article SET ViewCount=ViewCount+1 WHERE Id = @Id;";
             MySqlParameter[] para = new MySqlParameter[] { new MySqlParameter("@Id", id) };
-            return dataBase.QueryModel<ArticleDBModel>(sql, para.ToList());
+            return _DataBase.QueryModel<ArticleDBModel>(sql, para.ToList());
         }
 
         public bool Exsit(string keyWord)
@@ -102,7 +102,7 @@ namespace Qin.Blog.Dao
         /// <returns></returns>
         public List<Article> GetList(out int total)
         {
-            DataSet ds = dataBase.GetList4MySql<Article>(new Article());
+            DataSet ds = _DataBase.GetList4MySql<Article>(new Article());
             DataTable dt = ds.Tables[0];
             total = Convert.ToInt32(ds.Tables[1].Rows[0]["TotalCount"]);
             List<Article> list = FillData.FillDataToList(new Article(), dt);
@@ -142,7 +142,7 @@ namespace Qin.Blog.Dao
                 new MySqlParameter("@PageIndex", --pageIndex*10),
                 new MySqlParameter("@PageSize", pageSize)
             };
-            var list = dataBase.QueryList<Article>(sql, para.ToList());
+            var list = _DataBase.QueryList<Article>(sql, para.ToList());
 
             var sql_total = @"SELECT
 	                            a.*, b.NickName,
@@ -154,9 +154,9 @@ namespace Qin.Blog.Dao
                             WHERE
 	                            UserId = @UserId";
 
-            DataSet ds = dataBase.GetPage4MySql(new Article(), pageIndex, pageSize);
+            DataSet ds = _DataBase.GetPage4MySql(new Article(), pageIndex, pageSize);
             DataTable pages = ds.Tables[0];
-            total = dataBase.QueryTotal(sql_total, para.ToList());
+            total = _DataBase.QueryTotal(sql_total, para.ToList());
             return list;
         }
 
@@ -180,14 +180,12 @@ namespace Qin.Blog.Dao
                     sql_total.Append(string.Format(" Where TypeId In (Select Id From articletype Where TypeName = '{0}' Or TypeName = '{1}')", _1_WebFront[0], _1_WebFront[1]));
                     break;
                 case "2":
-                    sql += string.Format(" Where TypeId In (Select Id From articletype Where TypeName = '{0}' )", _2_ASP_NET);
-                    sql_total.Append(string.Format(" Where TypeId In (Select Id From articletype Where TypeName = '{0}' )", _2_ASP_NET));
+                    sql += string.Format(" Where TypeId In (Select Id From articletype Where TypeName = '{0}' Or TypeName = '{1}')", _2_BackStage[0], _2_BackStage[1]);
+                    sql_total.Append(string.Format(" Where TypeId In (Select Id From articletype Where TypeName = '{0}' Or TypeName = '{1}')", _2_BackStage[0], _2_BackStage[1]));
                     break;
                 case "3":
                     sql += string.Format(" Where TypeId In (Select Id From articletype Where TypeName = '{0}' )", _3_Essay);
                     sql_total.Append(string.Format(" Where TypeId In (Select Id From articletype Where TypeName = '{0}' )", _3_Essay));
-                    break;
-                case "4":  //leavemessage delete
                     break;
                 default:
                     break;
@@ -200,8 +198,8 @@ namespace Qin.Blog.Dao
                 new MySqlParameter("@PageSize", pageSize)
             };
 
-            var list = dataBase.QueryList<ArticleDBModel>(sql, paraslist);
-            total = dataBase.QueryTotal(sql_total.ToString(), null);  //查询总数
+            var list = _DataBase.QueryList<ArticleDBModel>(sql, paraslist);
+            total = _DataBase.QueryTotal(sql_total.ToString(), null);  //查询总数
             if (list != null && list.Count > 0)
             {
                 return list;
@@ -219,7 +217,7 @@ namespace Qin.Blog.Dao
         /// <returns></returns>
         public bool InsertList(List<Article> list)
         {
-            bool result = dataBase.InsertList<Article>(list);
+            bool result = _DataBase.InsertList<Article>(list);
             return result;
         }
 
@@ -237,8 +235,8 @@ namespace Qin.Blog.Dao
             {
                 new MySqlParameter("@UserId", userId),
             };
-            var list = dataBase.QueryList<Article>(sql, para.ToList());
-            var totallist = dataBase.QueryTotal(sql_total, para.ToList());
+            var list = _DataBase.QueryList<Article>(sql, para.ToList());
+            var totallist = _DataBase.QueryTotal(sql_total, para.ToList());
             total = totallist;
             return list;
         }
@@ -250,7 +248,7 @@ namespace Qin.Blog.Dao
         /// <returns></returns>
         public int Update(Article model)
         {
-            return dataBase.UpdateModel<Article>(model);
+            return _DataBase.UpdateModel<Article>(model);
         }
 
 

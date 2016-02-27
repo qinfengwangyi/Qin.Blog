@@ -30,7 +30,7 @@ namespace Qin.Blog.Web.Controllers
 
         public class SupportInfo
         {
-            public string Navindex { get; set; }
+            public int Navindex { get; set; }
         }
 
         private SupportInfo _Navactive = null;
@@ -40,7 +40,7 @@ namespace Qin.Blog.Web.Controllers
             {
                 if (_Navactive == null)
                 {
-                    _Navactive = new SupportInfo() { Navindex = HttpContext.Session["Navindex"] as string };
+                    _Navactive = new SupportInfo() { Navindex = Convert.ToInt32(HttpContext.Session["Navindex"] ?? 0) };
                 }
                 return _Navactive;
             }

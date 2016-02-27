@@ -2,7 +2,7 @@
     ViewBag.Title = "留言页";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@model List<Qin.Blog.Entity.LeaveMessage>
+@model List<Qin.Blog.Entity.DBModel.LeaveMsgDBModel>
 
 <div class="col-md-8 mainContent">
     <div class="articlelist">
@@ -15,41 +15,14 @@
         <div class="leavemsgWrap">
 
             <div class="article-page">
-                <div class="addleavmsg">
+                <div class="addleavemsg">
                     <h4>留下您想说的吧：</h4>
-                    <textarea class="msg-content" placeholder="请输入您的留言(500字以内)" maxlength="500"></textarea>
-                    <button class="btn btn-primary">提交</button>
+                    <textarea class="msg-content" placeholder="登录回复您的意见(500字以内)" maxlength="500"></textarea>
+                    <button class="btn btn-primary">留言</button>
                 </div>
             </div>
 
             <div class="leavemsg-page">
-                <div class="article-page">
-                    <div class="leavemsg">
-                        <p class="msg-header">
-                            <a href="#">游客</a>
-                            <time>2015-12-30 12:23:34</time>
-                        </p>
-                        <p>Hello，Welcome to Here。I hava a message。</p>
-                        <a class="reply" onclick="show(this)">回复<i class="glyphicon glyphicon-pencil"></i></a>
-                        <p class="msgWrap">
-                            <textarea class="msg" placeholder="请输入你的意见(500字以内)"></textarea>
-                            <button class="btn btn-success">回复</button>
-                        </p>
-                    </div>
-                    <div class="leavemsg">
-                        <p class="msg-header">
-                            <a href="#">Keefe</a>
-                            <time>2016-01-03 12:23:36</time>
-                        </p>
-                        <p>很高兴收到你的留言，非常的感谢您的建议。</p>
-                        <a class="reply" onclick="show(this)">回复<i class="glyphicon glyphicon-pencil"></i></a>
-                        <p class="msgWrap">
-                            <textarea class="msg" placeholder="请输入你的意见(500字以内)"></textarea>
-                            <button class="btn btn-success">回复</button>
-                        </p>
-                    </div>
-                </div>
-
                 @if (Model != null)
                 {
                     foreach (var item in Model)
@@ -57,13 +30,17 @@
                         <div class="article-page">
                             <div class="leavemsg">
                                 <p class="msg-header">
-                                    <a href="#">@item.CreateUser</a>
+                                    <a href="javascript:;">@item.NickName</a>
                                     <time>@item.CreateTime</time>
                                 </p>
                                 <p>@item.Content</p>
+                                @if (item.ParentId != "0")
+                                {
+                                    <p class="rmsg">回复://<a>@@@item.PNickName</a>：@item.PContent <time>时间:@item.PCreateTime</time></p>
+                                }
                                 <a class="reply" onclick="show(this)">回复<i class="glyphicon glyphicon-pencil"></i></a>
-                                <p class="msgWrap">
-                                    <textarea class="msg" placeholder="请输入你的意见(500字以内)"></textarea>
+                                <p class="msgWrap" data-parentid="@item.Id">
+                                    <textarea class="msg" placeholder="回复您的意见(500字以内)"></textarea>
                                     <button class="btn btn-success">回复</button>
                                 </p>
                             </div>
@@ -94,17 +71,20 @@
         <div class="leavemsg">
             <p class="msg-header">
                 {if CreateUser != null}
-                <a href="#">${CreateUser}</a>
+                <a href="javascript:;">${CreateUser}</a>
                 {/if}
                 {if CreateUser == null}
-                <a href="#">游客</a>
+                <a href="javascript:;">游客</a>
                 {/if}
                 <time>${CreateTime=='/Date(-1893484800000)/'?"":$.modifiers.formatDate(CreateTime)}</time>
             </p>
             <p>${$.HTMLEncode(Content)}</p>
+            {if ParentId != "0"}
+            <p class="rmsg">回复//<a>@@${PUserName}:${PContent} <time>时间:${PCreateTime=='/Date(-1893484800000)/'?"":$.modifiers.formatDate(PCreateTime)}</time></a></p>
+            {/if}
             <a class="reply" onclick="show(this)">回复<i class="glyphicon glyphicon-pencil"></i></a>
-            <p class="msgWrap">
-                <textarea class="msg" placeholder="请输入你的意见(500字以内)"></textarea>
+            <p class="msgWrap" data-parentid="${Id}">
+                <textarea class="msg" placeholder="回复您的意见(500字以内)"></textarea>
                 <button class="btn btn-success">回复</button>
             </p>
         </div>
@@ -115,25 +95,70 @@
     $(function () {
         pageIndex = 1;
 
-        $(".addleavmsg .btn-primary").click(function () {
-            var msgcontent = $(".msg-content");
-            if (msgcontent.val().trim()) {
+        //$(".addleavemsg .btn-primary").click(function () {
+        //    var msgcontent = $(".msg-content");
+        //    if (msgcontent.val().trim()) {
+        //        $.ajax({
+        //            url: '/LeaveMessage/Insert',
+        //            type: 'post',
+        //            dataType: 'json',
+        //            data: { content: msgcontent.val() },
+        //            success: function (data) {
+        //                if (data.status) {
+        //                    alert(data.message);
+        //                    msgcontent.val('');
+        //                } else {
+        //                    alert(data.message);
+        //                }
+        //            }
+        //        });
+        //    } else {
+        //        alert('不能输入空字符串！');
+        //    }
+        //});
+
+        $(".addleavemsg .btn-primary").click(function () {
+            var msgcontent = $(".msg-content").val().trim();
+            if (msgcontent) {
                 $.ajax({
                     url: '/LeaveMessage/Insert',
                     type: 'post',
                     dataType: 'json',
-                    data: { content: msgcontent.val() },
+                    data: { content: msgcontent },
                     success: function (data) {
                         if (data.status) {
                             alert(data.message);
-                            msgcontent.val('');
+                            window.location.reload();
                         } else {
                             alert(data.message);
                         }
                     }
                 });
             } else {
-                alert('不能输入空字符串！');
+                alert('请输入非空意见！');
+            }
+        });
+
+        $(".msgWrap .btn-success").click(function () {
+            var msgcon = $(this).prev().val().trim();
+            var btn = $(this);
+            if (msgcon) {
+                $.ajax({
+                    url: '/LeaveMessage/Reply',
+                    type: 'post',
+                    dataType: 'json',
+                    data: { content: msgcon, parentId: btn.parent().attr("data-parentid") },
+                    success: function (data) {
+                        if (data.status) {
+                            alert(data.message);
+                            window.location.reload();
+                        } else {
+                            alert(data.message);
+                        }
+                    }
+                });
+            } else {
+                alert('请输入非空意见！');
             }
         });
     });

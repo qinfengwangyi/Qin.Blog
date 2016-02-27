@@ -32,9 +32,9 @@
                     </div>
                     @if (article.Pics != null)
                     {
-                        <div class="featured-media">
-                            <img class="img-responsive" src="@article.Pics" alt="文章图片">
-                        </div>
+                    <div class="featured-media">
+                        <img class="img-responsive" src="@article.Pics" alt="文章图片">
+                    </div>
                     }
                     <div class="article-content">
                         <p>
@@ -64,11 +64,11 @@
     <div class="paginationW">
         @if (ViewBag.Loaded >= ViewBag.Total)
         {
-            <button class="more none" disabled>没有更多了</button>
+        <button class="more none" disabled>没有更多了</button>
         }
         else
         {
-            <button class="more">查看更多</button>
+        <button class="more">查看更多</button>
         }
     </div>
 </div>
@@ -139,8 +139,8 @@
     });
 
     function Page() {
-        var index = $("li.navactive a").attr("data-typeid");
-        if (index) {
+        //var index = $("li.navactive a").attr("data-typeid");
+        if (@ViewBag.Index >= 0) {
             $.ajax({
                 url: '/Article/CategoryPage',
                 dataType: 'json',
@@ -165,7 +165,7 @@
                 }
             });
         } else {
-
+            //
         }
     }
 

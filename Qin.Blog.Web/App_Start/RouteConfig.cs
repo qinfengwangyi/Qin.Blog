@@ -39,7 +39,13 @@ namespace Qin.Blog.Web
                 namespaces: new[] { "Qin.Blog.Web.Controllers" }
             );
 
-
+            //留言
+            routes.MapRoute(
+                name: "leavemessage",
+                url: "leavemsg",
+                defaults: new { controller = "LeaveMessage", action ="Index", id = UrlParameter.Optional},
+                namespaces: new []{"Qin.Blog.Web.Controllers"}
+            );
 
 
             routes.MapRoute(

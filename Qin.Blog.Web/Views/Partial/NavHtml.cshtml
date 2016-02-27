@@ -11,19 +11,19 @@
         </div>
         <div class="navbar-collapse nostyle collapse">
             <ul class="nav navbar-nav  inner">
-                <li class="@(ViewBag.Navactive ?? "navactive")">
-                    <a href="/" data-typeid="0">首页</a>
+                <li class="@(ViewBag.Navactive == 0 ? "navactive" : "")">
+                    <a href="/">首页</a>
                 </li>
-                <li class="@(ViewBag.Navactive == "1" ? "navactive" : "")">
+                <li class="@(ViewBag.Navactive == 1 ? "navactive" : "")">
                     <a href="/?index=1">前端</a>
                 </li>
-                <li class="@(ViewBag.Navactive == "2" ? "navactive" : "")">
-                    <a href="/?index=2">.NET</a>
+                <li class="@(ViewBag.Navactive == 2 ? "navactive" : "")">
+                    <a href="/?index=2">后台</a>
                 </li>
-                <li class="@(ViewBag.Navactive == "3" ? "navactive" : "")">
+                <li class="@(ViewBag.Navactive == 3 ? "navactive" : "")">
                     <a href="/?index=3">随笔</a>
                 </li>
-                <li class="@(ViewBag.Navactive == "4" ? "navactive" : "")">
+                <li class="@(ViewBag.Navactive == 4 ? "navactive" : "")">
                     <a href="@Url.Action("Index", "LeaveMessage")">留言</a>
                 </li>
             </ul>
@@ -35,6 +35,7 @@
                 }
                 else
                 {
+                    <a class="login" href="@Url.Action("Index", "Account")">个人中心</a>
                     <a class="logout" href="@Url.Action("Logout", "Account")">注销</a>
                 }
             </div>
