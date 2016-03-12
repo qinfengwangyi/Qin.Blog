@@ -229,7 +229,7 @@ namespace Qin.Blog.Dao
         /// <returns></returns>
         public List<Article> GetUserArticles(string userId, out int total)
         {
-            string sql = @"Select * From article Where UserId = @UserId";
+            string sql = @"Select * From article Where UserId = @UserId Order By CreateTime Desc;";
             string sql_total = @"Select Count(*) From article Where UserId = @UserId";
             MySqlParameter[] para = new MySqlParameter[]
             {

@@ -94,29 +94,7 @@
     var pageIndex;
     $(function () {
         pageIndex = 1;
-
-        //$(".addleavemsg .btn-primary").click(function () {
-        //    var msgcontent = $(".msg-content");
-        //    if (msgcontent.val().trim()) {
-        //        $.ajax({
-        //            url: '/LeaveMessage/Insert',
-        //            type: 'post',
-        //            dataType: 'json',
-        //            data: { content: msgcontent.val() },
-        //            success: function (data) {
-        //                if (data.status) {
-        //                    alert(data.message);
-        //                    msgcontent.val('');
-        //                } else {
-        //                    alert(data.message);
-        //                }
-        //            }
-        //        });
-        //    } else {
-        //        alert('不能输入空字符串！');
-        //    }
-        //});
-
+        //leavamessage
         $(".addleavemsg .btn-primary").click(function () {
             var msgcontent = $(".msg-content").val().trim();
             if (msgcontent) {
@@ -138,7 +116,7 @@
                 alert('请输入非空意见！');
             }
         });
-
+        //reply leavamessage
         $(".msgWrap .btn-success").click(function () {
             var msgcon = $(this).prev().val().trim();
             var btn = $(this);

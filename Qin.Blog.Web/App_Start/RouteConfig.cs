@@ -21,6 +21,14 @@ namespace Qin.Blog.Web
                 namespaces: new[] { "Qin.Blog.Web.Controllers" }
             );
 
+            //Edit Article
+            routes.MapRoute(
+                name: "Article/Edit",
+                url: "editarticle/{id}.html",
+                defaults: new { controller = "Article", action = "Edit", id = UrlParameter.Optional },
+                namespaces: new[] { "Qin.Blog.Web.Controllers" }
+            );
+
 
             //登录
             routes.MapRoute(

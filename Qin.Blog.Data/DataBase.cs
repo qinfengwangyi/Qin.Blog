@@ -659,7 +659,7 @@ namespace Qin.Blog.Data
                 }
                 return list;
             }
-            return null;
+            return list;
         }
 
         /// <summary>

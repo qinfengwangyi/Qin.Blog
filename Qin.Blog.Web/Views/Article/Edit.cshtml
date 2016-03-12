@@ -2,9 +2,9 @@
     Layout = "~/Views/Shared/_AccountLayout.cshtml";
     ViewBag.Title = "编辑文章";
 }
-
+@model Qin.Blog.Entity.Article
 <div class="accountbody">
-    <form id="form1" action="/Article/Insert" method="post">
+    <form id="form1" action="/Article/Update" method="post">
         <div class="row myrow">
             <div class="col-md-2 col-sm-2 col-xs-3">
                 <label>文章分类：</label>
@@ -20,8 +20,8 @@
             </div>
             <div class="col-md-10 col-sm-10 col-xs-9">
                 <select name="IsTop" class="cm-input">
-                    <option value="0" selected>否</option>
-                    <option value="1">是</option>
+                    <option value="0" @(Model.IsTop == 0 ? "selected" : "")>否</option>
+                    <option value="1" @(Model.IsTop == 1 ? "selected" : "")>是</option>
                 </select>
             </div>
         </div>
@@ -30,7 +30,7 @@
                 <label>文章标题：</label>
             </div>
             <div class="col-md-10 col-sm-10 col-xs-9">
-                <input name="Title" class="cm-input title" required />
+                <input name="Title" class="cm-input title" required value="@Model.Title" />
             </div>
         </div>
         <div class="row myrow">
@@ -38,14 +38,18 @@
                 <label>图片：</label>
             </div>
             <div class="col-md-10 col-sm-10 col-xs-9">
-                <input name="Pics" class="form-control" type="hidden" />
-                <div class="col-md-4" id="uploader-demo">
-                    <!--用来存放item-->
-                    <div id="fileList" class="uploader-list"></div>
-                    <div id="filePicker">选择图片</div>
-                </div>
-                <div class="col-md-6">
-                    <label id="filetip" class="label label-default">default</label>
+                <input name="Pics" class="form-control" type="hidden" value="@Model.Pics" />
+                <div class="row">
+
+                    <div class="col-md-2" id="uploader-demo">
+                        <!--用来存放item-->
+                        <div id="fileList" class="uploader-list"></div>
+                        <div id="filePicker">选择图片</div>
+                    </div>
+                    <div class="col-md-10">
+                        <img class="pics" src="@Model.Pics" style="display:inline-block;max-height:42px;max-width:100px;margin-right:20px;" />
+                        <label id="filetip" class="label label-default">default</label>
+                    </div>
                 </div>
             </div>
         </div>
@@ -54,7 +58,7 @@
                 <label>文章摘要：</label>
             </div>
             <div class="col-md-10 col-sm-10 col-xs-9">
-                <textarea name="Abstract" class="abstract" required></textarea>
+                <textarea name="Abstract" class="abstract" required>@Model.Abstract</textarea>
             </div>
         </div>
         <div class="row myrow">
@@ -62,7 +66,7 @@
                 <label>文章内容：</label>
             </div>
             <div class="col-md-10">
-                <script id="Content" name="Content"></script>
+                <script id="Content" name="Content">@Html.Raw(Model.Content)</script>
             </div>
         </div>
         <div class="row myrow">
@@ -70,7 +74,7 @@
                 <label>文章标签：</label>
             </div>
             <div class="col-md-6 col-sm-6 col-xs-6">
-                <input name="Tag" class="cm-input tag" readonly="readonly" />
+                <input name="Tag" class="cm-input tag" readonly="readonly" value="@Model.Tag" />
             </div>
             <div class="col-md-4 col-sm-4 col-xs-3">
                 <input type="button" class="cm-input btn btn-success addtag" value="添加标签" />
@@ -220,11 +224,13 @@
     });
 
     uploader.on('uploadSuccess', function (file, response) {
-        if (eval('(' + response._raw + ')').result) {
+        var fileinfo = eval('(' + response._raw + ')');
+        if (fileinfo.result) {
             $("#filetip").html(file.name);
-            $("[name=Pics]").val(response.pics);
+            $(".pics").attr("src", fileinfo.pics);
+            $("[name=Pics]").val(fileinfo.pics);
         } else {
-            alert(eval('(' + response._raw + ')').msg);
+            alert(fileinfo.msg);
         }
     });
 

@@ -20,13 +20,24 @@ namespace Qin.Blog.Web.Controllers
             return View();
         }
 
+
+        public ActionResult CommentList(string articleId)
+        {
+            int total = 0;
+            var list = _ICommentService.CommentPages(1, int.MaxValue, articleId, out total);
+            ViewBag.TotalComment = total;
+            ViewBag.ArticleId = articleId;
+            ViewBag.UserName = CUR_USER != null ? CUR_USER.UserName : null;
+            return PartialView(list);
+        }
+
         /// <summary>
         /// 添加评论
         /// </summary>
         /// <param name="content"></param>
         /// <returns></returns>
         [HttpPost]
-        //[ValidateInput(false)]
+        [ValidateInput(false)]
         public ActionResult Insert(string content, string articleId)
         {
             Comment model = new Comment()
@@ -59,7 +70,7 @@ namespace Qin.Blog.Web.Controllers
         /// <param name="parentId"></param>
         /// <returns></returns>
         [HttpPost]
-        //[ValidateInput(false)]
+        [ValidateInput(false)]
         public ActionResult Reply(string content, string articleId, string parentId = "0")
         {
             if (CUR_USER != null)
@@ -69,7 +80,7 @@ namespace Qin.Blog.Web.Controllers
                     Id = Guid.NewGuid().ToString("N"),
                     ArticleId = articleId,
                     UserId = CUR_USER.Id,//回复者ID
-                    ParentId = "0",
+                    ParentId = parentId,
                     Content = content,
                     CreateUser = CUR_USER.UserName,
                     CreateTime = DateTime.Now,

@@ -27,6 +27,17 @@
         </div>
         <div class="row myrow">
             <div class="col-md-2 col-sm-2 col-xs-3">
+                <label>是否原创：</label>
+            </div>
+            <div class="col-md-10 col-sm-10 col-xs-9">
+                <select name="IsOriginal" class="cm-input">
+                    <option value="0" selected>否</option>
+                    <option value="1">是</option>
+                </select>
+            </div>
+        </div>
+        <div class="row myrow">
+            <div class="col-md-2 col-sm-2 col-xs-3">
                 <label>文章标题：</label>
             </div>
             <div class="col-md-10 col-sm-10 col-xs-9">
@@ -38,14 +49,17 @@
                 <label>图片：</label>
             </div>
             <div class="col-md-10 col-sm-10 col-xs-9">
-                <input name="Pics" class="form-control" type="hidden" />
-                <div class="col-md-4" id="uploader-demo">
-                    <!--用来存放item-->
-                    <div id="fileList" class="uploader-list"></div>
-                    <div id="filePicker">选择图片</div>
-                </div>
-                <div class="col-md-6">
-                    <label id="filetip" class="label label-default">default</label>
+                <div class="row">
+                    <input name="Pics" class="form-control" type="hidden" />
+                    <div class="col-md-2" id="uploader-demo">
+                        <!--用来存放item-->
+                        <div id="fileList" class="uploader-list"></div>
+                        <div id="filePicker">选择图片</div>
+                    </div>
+                    <div class="col-md-10">
+                        <img class="pics" src="" style="display:inline-block;max-height:42px;max-width:100px;margin-right:20px;" />
+                        <label id="filetip" class="label label-default">default</label>
+                    </div>
                 </div>
             </div>
         </div>
@@ -223,6 +237,7 @@
         var fileinfo = eval('(' + response._raw + ')');
         if (fileinfo.result) {
             $("#filetip").html(file.name);
+            $(".pics").attr("src", fileinfo.pics);
             $("[name=Pics]").val(fileinfo.pics);
         } else {
             alert(file.msg);

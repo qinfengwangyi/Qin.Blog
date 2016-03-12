@@ -35,7 +35,7 @@ namespace Qin.Blog.Web.Controllers
             return new ActionReturn(false);
         }
 
-        
+
         public ActionResult Index()
         {
             int total = 0;
@@ -49,12 +49,13 @@ namespace Qin.Blog.Web.Controllers
         /// 编辑文章
         /// </summary>
         /// <returns></returns>
-        public ActionResult Edit()
+        public ActionResult Edit(string id)
         {
-            return View();
+            var article = _IArticleService.GetById(id);
+            return View(article);
         }
 
-        
+
         /// <summary>
         /// 标签分类文章
         /// </summary>

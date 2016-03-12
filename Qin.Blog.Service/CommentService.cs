@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Qin.Blog.Service
 {
-    public class CommentService:ICommentService
+    public class CommentService : ICommentService
     {
         ICommentDao _ICommentDao = new CommentDao();
 

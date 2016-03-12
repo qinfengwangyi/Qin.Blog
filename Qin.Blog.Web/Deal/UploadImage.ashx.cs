@@ -20,7 +20,8 @@ namespace Qin.Blog.Web.Deal
         private HttpResponse Response { get; set; }
         private HttpServerUtility Server { get; set; }
 
-        private string ServerBaseURL = ConfigurationManager.AppSettings["UploadImage"].ToString();
+        private string ServerBaseURL = ConfigurationManager.AppSettings["UploadImage"].ToString()
+            + DateTime.Now.ToString("yyyyMMdd") + "/";
 
         public void ProcessRequest(HttpContext context)
         {
@@ -38,11 +39,16 @@ namespace Qin.Blog.Web.Deal
                 context.Response.ContentType = "text/plain";
                 if (fileLength > 512000)
                 {
-                    string jsonerror = "{'result':'false','msg':'文件过大！'}";
+                    string jsonerror = "{'result':'false','msg':'file too big！'}";
                     Response.Write(jsonerror);
                 }
                 string newFileName = Guid.NewGuid().ToString("N") + fileExtension;
                 string filePath = Path.Combine(Server.MapPath(ServerBaseURL), newFileName);
+
+                if (!Directory.Exists(Server.MapPath(ServerBaseURL)))
+                {//create file path
+                    Directory.CreateDirectory(Server.MapPath(ServerBaseURL));
+                }
                 file.SaveAs(filePath);
 
                 string json = "{result:'true',pics:'" + ServerBaseURL + newFileName + "'}";

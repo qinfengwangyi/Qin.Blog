@@ -80,7 +80,7 @@ namespace Qin.Blog.Service
 
         Article IServiceBase<Article>.GetById(string id)
         {
-            throw new NotImplementedException();
+            return _IArticleDao.GetById(id);
         }
 
 

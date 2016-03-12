@@ -1,0 +1,143 @@
+﻿@{
+    Layout = null;
+}
+@model List<Qin.Blog.Entity.DBModel.CommentDBModel>
+<div class="comment">
+    <h6 class="title">
+        评论
+        <small>
+            已有 <b>@ViewBag.TotalComment</b> 条评论；以下用户言论只代表其个人观点，不代表前端汇聚网(visualtec.cn)的观点或立场。
+        </small>
+    </h6>
+
+    <div class="commentArea">
+        <a href="javascript:;">
+            <img src="~/Content/src/images/head.png" />
+        </a>
+        <div class="contentBody">
+
+            <div class="contentTitle">
+                <a href="#" class="comment-uname" target="_blank">@(ViewBag.UserName != null ? ViewBag.UserName : "未登录用户")</a>
+                <p class="wordcount">
+                    <span>还可以输入</span>
+                    <span class="num">300</span>
+                    <span>字</span>
+                </p>
+            </div>
+            <div class="comment-textW">
+                <textarea class="comment-text" placeholder="看到就随便说点啥再走,说啥都是对编者的鼓励与鞭策^^" maxlength="300"></textarea>
+                <button type="button" class="btn btn-primary pull-right" data-text="发表评论">发表评论</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="newComment">
+    <h6 class="title">
+        <span>最新</span>
+        评论 <i></i>
+    </h6>
+    @if (Model.Count > 0)
+    {
+        foreach (var item in Model)
+        {
+            <div class="commentList">
+                <div class="commentArea">
+                    <a href="#">
+                        <img src="~/Content/src/images/head.png" />
+                    </a>
+                    <div class="contentBody">
+                        <div class="contentTitle">
+                            <a href="javascript:;" class="comment-uname">@item.NickName</a>
+                        </div>
+                        <div class="comment-textW">
+                            <p>@item.Content @if (item.ParentId != "0")
+                            {@("回复：//@@")<a>@item.PNickName</a><span>：@item.PContent</span>}</p>
+                            <div class="pull-right">
+                                <time>时间：@item.CreateTime</time>
+                                <a class="feedbackbutton" href="javascript:void(0);">回复</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="feedback">
+                    <div class="replyArea">
+                        <p class="wordcount">
+                            <span>还可以输入</span>
+                            <span class="num">300</span>
+                            <span>字</span>
+                        </p>
+                        <div class="reply-textW">
+                            <textarea data-id="@item.Id" class="comment-text" placeholder="看到就随便说点啥再走,说啥都是对编者的鼓励与鞭策^^" maxlength="300"></textarea>
+                            <button type="button" class="btn btn-primary pull-right" data-text="发表评论">回复</button>
+                            <button type="button" class="btn btn-default pull-right cancel" data-text="发表评论">取消</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <div class="commentList">
+            <p>暂无最新评论，期待你的点评哦，作者会加倍努力的~~</p>
+        </div>
+    }
+</div>
+<script>
+    $(".feedbackbutton").on("click", function () {
+        $(this).parents(".commentArea").next().slideToggle();
+    });
+    $(".reply-textW .cancel").on("click", function () {
+        $(this).parents(".feedback").slideToggle();
+    });
+
+    $(".comment-text").on("keyup", function () {
+        var len = $(this).val().length;
+        $(this).parent().prev().find(".num").text(300 - len);
+    });
+
+    //comment
+    $(".comment-textW .btn-primary").click(function () {
+        var comment = $(this).prev().val().trim();
+        if (comment) {
+            $.ajax({
+                url: '/Comment/Insert',
+                type: 'post',
+                dataType: 'json',
+                data: { content: comment, articleId: '@ViewBag.ArticleId' },
+                success: function (data) {
+                    if (data.status) {
+                        alert(data.message);
+                        $.get('@Url.Action("CommentList", "Comment", new { articleId = ViewBag.ArticleId })', function (data) { $(".commentWrap").html(data) });
+                    } else {
+                        alert(data.message);
+                    }
+                }
+            });
+        } else {
+            alert('请输入非空意见！');
+        }
+    });
+    //reply comment
+    $(".reply-textW .btn-primary").click(function () {
+        var comment = $(this).prev().val().trim();
+        if (comment) {
+            $.ajax({
+                url: '/Comment/Reply',
+                type: 'post',
+                dataType: 'json',
+                data: { content: comment, articleId: '@ViewBag.ArticleId', parentId: $(this).prev().attr('data-id') },
+                success: function (data) {
+                    if (data.status) {
+                        alert(data.message);
+                        $.get('@Url.Action("CommentList", "Comment", new { articleId = ViewBag.ArticleId })', function (data) { $(".commentWrap").html(data) });
+                    } else {
+                        alert(data.message);
+                    }
+                }
+            });
+        } else {
+            alert('请输入非空意见！');
+        }
+    });
+</script>

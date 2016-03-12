@@ -31,6 +31,11 @@ namespace Qin.Blog.Entity.DBModel
         public int IsTop { get; set; }
 
         /// <summary>
+        /// 是否原创
+        /// </summary>
+        public int IsOriginal { get; set; }
+
+        /// <summary>
         /// 文章摘要
         /// </summary>
         public string Abstract { get; set; }

@@ -65,7 +65,7 @@ namespace Qin.Blog.Web.Controllers
         /// <param name="parentId"></param>
         /// <returns></returns>
         [HttpPost]
-        //[LoginAuthorize]
+        [ValidateInput(false)]
         public ActionResult Reply(string content, string parentId = "0")
         {
             if (CUR_USER != null)

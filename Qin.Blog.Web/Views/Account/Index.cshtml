@@ -79,7 +79,7 @@
                             <a href="@Url.Action("Detail", "Article", new { id = item.Id })" target="_blank">@item.Title</a><a href="@Url.Action("Edit", "Article", new { id = item.Id })" target="_blank" class="a-edit">修改</a>
                         </div>
                         <div class="col-md-4 col-sm-4 col-xs-3">
-                            <span>@item.CreateTime</span>
+                            <span>@item.CreateTime.ToString("yyyy-MM-dd HH:mm:ss")</span>
                         </div>
                     </div>
                 }

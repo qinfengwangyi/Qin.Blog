@@ -56,6 +56,14 @@ namespace Qin.Blog.Dao
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// 文章的评论列表
+        /// </summary>
+        /// <param name="pageIndex"></param>
+        /// <param name="pageSize"></param>
+        /// <param name="articleId"></param>
+        /// <param name="total"></param>
+        /// <returns></returns>
         public List<CommentDBModel> CommentPages(int pageIndex, int pageSize, string articleId, out int total)
         {
             total = 0;
@@ -84,7 +92,7 @@ namespace Qin.Blog.Dao
                         WHERE a.ArticleId = @ArticleId
                         ORDER BY
 	                        a.CreateTime DESC LIMIT @PageIndex,@PageSize";
-            var sql_total = @"Select Count(*) From leavemessage;";
+            var sql_total = @"Select Count(*) From comment WHERE ArticleId = @ArticleId;";
             MySqlParameter[] paraList = new MySqlParameter[]
             {
                 new MySqlParameter("@ArticleId", articleId),
@@ -93,7 +101,7 @@ namespace Qin.Blog.Dao
             };
 
             var list = _DataBase.QueryList<CommentDBModel>(sql, paraList.ToList());
-            total = _DataBase.QueryTotal(sql_total, null); //查询总数
+            total = _DataBase.QueryTotal(sql_total, paraList.ToList()); //查询总数
             return list;
         }
     }

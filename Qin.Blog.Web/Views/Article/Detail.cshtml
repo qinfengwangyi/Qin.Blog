@@ -20,6 +20,7 @@
                     <time class="article-date" datetime="@Model.CreateTime.ToString("yyyy-MM-dd HH:mm:ss")" title="@Model.CreateTime.ToString("yyyy-MM-dd HH:mm:ss")">
                         @Model.CreateTime.ToString("yyyy-MM-dd HH:mm:ss")
                     </time>
+                    <span>浏览：@Model.ViewCount</span>
                 </div>
             </div>
             <div class="featured-media">
@@ -33,7 +34,21 @@
             <div class="article-content">
                 @Html.Raw(Model.Content)
             </div>
-
+            <div class="isoriginal">
+                <p class="describ">
+                    <i class="glyphicon glyphicon-star @(Model.IsOriginal == 1 ? "yes" : "no")"></i>
+                    <span>@(Model.IsOriginal == 1 ? "作者原创，转载请指明地址！" : "此文转载，如有侵权，请悉告知")</span>
+                    @if (Model.IsOriginal == 1)
+                    {
+                        <a target="_blank" style="display:inline-block;word-break:break-all;margin-top: 10px;" href="@Url.Action("Detail", "Article", new { id = Model.Id })">原文地址：www.visualtec.cn/article/@(Model.Id).html</a>
+                    }
+                </p>
+            </div>
+            @*评论模块 start*@
+            <div class="commentWrap">
+                @Html.Action("CommentList", "Comment", new { articleId = Model.Id })
+            </div>
+            @*评论模块 end*@
         </div>
     </div>
 }
