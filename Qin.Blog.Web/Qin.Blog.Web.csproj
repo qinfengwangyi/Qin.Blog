@@ -95,6 +95,11 @@
   <ItemGroup>
     <Content Include="Content\common\css\accountcm.css" />
     <Content Include="Content\common\css\common.css" />
+    <Content Include="Content\common\fonts\demo.css" />
+    <Content Include="Content\common\fonts\demo.html" />
+    <Content Include="Content\common\fonts\iconfont.css" />
+    <Content Include="Content\common\fonts\iconfont.svg" />
+    <Content Include="Content\common\images\qrcode.png" />
     <Content Include="Content\common\js\common.js" />
     <Content Include="Content\src\images\article01.png" />
     <Content Include="Content\src\images\end.ico" />
@@ -499,6 +504,9 @@
     <Content Include="Content\src\scss\index.scss" />
     <Content Include="Areas\UserCenter\Views\Home\Login.cshtml" />
     <Content Include="Areas\UserCenter\Views\Article\Pages.cshtml" />
+    <Content Include="Content\common\fonts\iconfont.eot" />
+    <Content Include="Content\common\fonts\iconfont.ttf" />
+    <Content Include="Content\common\fonts\iconfont.woff" />
     <None Include="Properties\PublishProfiles\v1.0.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
