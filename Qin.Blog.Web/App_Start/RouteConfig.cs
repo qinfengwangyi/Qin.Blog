@@ -55,6 +55,14 @@ namespace Qin.Blog.Web
                 namespaces: new []{"Qin.Blog.Web.Controllers"}
             );
 
+            //tag category
+            routes.MapRoute(
+                name: "Article/TagPages",
+                url: "tagarticle",
+                defaults: new { controller = "Article", action = "TagPages", id = UrlParameter.Optional },
+                namespaces: new[] { "Qin.Blog.Web.Controllers" }
+            );
+
 
             routes.MapRoute(
                 name: "Default",

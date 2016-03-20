@@ -118,6 +118,14 @@ nav.navbar {
         transition: all 0.2s ease;
     }
 
+        /*tag active*/
+        .sidebar .widget .tag-cloud a.active {
+            color: #ffffff;
+            background: #fc3e24;
+            border: 1px solid #fc3e24;
+            text-decoration: none;
+        }
+
         .sidebar .widget .tag-cloud a:hover, .sidebar .widget .tag-cloud a:focus {
             color: #ffffff;
             background: #fc3e24;

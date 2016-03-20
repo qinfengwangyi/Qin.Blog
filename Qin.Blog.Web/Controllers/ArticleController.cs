@@ -36,15 +36,6 @@ namespace Qin.Blog.Web.Controllers
         }
 
 
-        public ActionResult Index()
-        {
-            int total = 0;
-            var list = _IArticleService.Pages(1, 10, null, out total);
-            ViewBag.ArticleList = list;
-            ViewBag.Total = total;
-            return View();
-        }
-
         /// <summary>
         /// 编辑文章
         /// </summary>
@@ -55,6 +46,21 @@ namespace Qin.Blog.Web.Controllers
             return View(article);
         }
 
+        /// <summary>
+        /// 标签分类
+        /// </summary>
+        /// <param name="tag"></param>
+        /// <returns></returns>
+        public ActionResult TagPages(string tag)
+        {
+            CUR_SupportInfo.TagIndex = tag;
+            CUR_SupportInfo.Navindex = 0;//置为0
+            int total = 0;
+            var list = _IArticleService.TagPages(tag, 1, 10, out total);
+            ViewBag.Total = total;
+            ViewBag.Loaded = (total <= 10 ? total : 10);
+            return View(list);
+        }
 
         /// <summary>
         /// 标签分类文章
@@ -63,11 +69,11 @@ namespace Qin.Blog.Web.Controllers
         /// <param name="pageSize"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult TagPages(int pageIndex = 1, int pageSize = 10)
+        public ActionResult TagPages(string tag, int pageIndex = 1, int pageSize = 10)
         {
             int total = 0;
             int curPageCount = 0;
-            var list = _IArticleService.Pages(pageIndex, pageSize, null, out total);
+            var list = _IArticleService.TagPages(tag, pageIndex, pageSize, out total);
             if (list != null && list.Count > 0)
             {
                 return new PagesReturn(pageIndex, total, list, curPageCount = list.Count);

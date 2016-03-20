@@ -28,23 +28,34 @@ namespace Qin.Blog.Web.Controllers
             }
         }
 
+        /// <summary>
+        /// 支持信息
+        /// </summary>
         public class SupportInfo
         {
+
+            /// <summary>
+            /// 导航栏
+            /// </summary>
             public int Navindex { get; set; }
+
+            /// <summary>
+            /// 标签
+            /// </summary>
+            public string TagIndex { get; set; }
         }
 
-        private SupportInfo _Navactive = null;
-        public SupportInfo Navactive
+        private SupportInfo _SupportInfo = null;
+        public SupportInfo CUR_SupportInfo
         {
             get
             {
-                if (_Navactive == null)
+                if (_SupportInfo == null)
                 {
-                    _Navactive = new SupportInfo() { Navindex = Convert.ToInt32(HttpContext.Session["Navindex"] ?? 0) };
+                    _SupportInfo = HttpContext.Session["SupportInfo"] as SupportInfo;
                 }
-                return _Navactive;
+                return _SupportInfo;
             }
-            set { _Navactive = value; }
         }
 
 

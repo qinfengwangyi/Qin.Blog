@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "标签分类";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -8,6 +7,7 @@
     <div class="articlelist">
         <div class="article-page">
             <ul>
+                <li>标签分类</li>
                 <li>共：<span class="total">@ViewBag.Total</span> 篇</li>
                 <li>已加载：<span class="loaded">@ViewBag.Loaded</span> 篇</li>
             </ul>
@@ -61,84 +61,15 @@
             <div class="article">没有了。。。</div>
         }
     </div>
-    <div class="leavemsgWrap" style="display:none;">
-
-        <div class="article-page">
-            <div class="addleavmsg">
-                <h4>留下您想说的吧：</h4>
-                <textarea class="msg-content" placeholder="请输入您的留言(500字以内)" maxlength="500"></textarea>
-                <button class="btn btn-primary">提交</button>
-            </div>
-        </div>
-        <div class="leavemsg-page">
-            <div class="article-page">
-                <div class="leavemsg">
-                    <p class="msg-header">
-                        <a href="#">blog fan</a>
-                        <time>2015-12-30 12:23:34</time>
-                    </p>
-                    <p>nihao,zheshi liuyan。你好，这是留言。nihao,zheshi liuyan。你好，这是留言。nihao,zheshi liuyan。你好，这是留言。nihao,zheshi liuyan。你好，这是留言。nihao,zheshi liuyan。你好，这是留言。</p>
-                    <a class="reply" onclick="show(this)">回复</a>
-                    <p class="msgWrap">
-                        <textarea class="msg" placeholder="请输入你的意见(500字以内)"></textarea>
-                        <button class="btn btn-success">评论</button>
-                    </p>
-                </div>
-                <div class="leavemsg">
-                    <p class="msg-header">
-                        <a href="#">qinfeng</a>
-                        <time>2016-01-03 12:23:34</time>
-                    </p>
-                    <p>很高兴收到你的留言，非常的感谢您的建议，会马上改进的。很高兴收到你的留言，非常的感谢您的建议，会马上改进的。很高兴收到你的留言，非常的感谢您的建议，会马上改进的</p>
-                    <a class="reply" onclick="show(this)">回复</a>
-                    <p class="msgWrap">
-                        <textarea class="msg" placeholder="请输入你的意见(500字以内)"></textarea>
-                        <button class="btn btn-success">评论</button>
-                    </p>
-                </div>
-                <div class="leavemsg">
-                    <p class="msg-header">
-                        <a href="#">blog fan</a>
-                        <time>2015-12-30 12:23:34</time>
-                    </p>
-                    <p>楼主的回答真精彩！！！</p>
-                    <a class="reply" onclick="show(this)">回复<i class="glyphicon glyphicon-pencil"></i></a>
-                    <p class="msgWrap">
-                        <textarea class="msg" placeholder="请输入你的意见(500字以内)"></textarea>
-                        <button class="btn btn-success">评论</button>
-                    </p>
-                </div>
-                <div class="leavemsg">
-                    <p class="msg-header">
-                        <a href="#">qinfeng</a>
-                        <time>2016-01-03 12:23:34</time>
-                    </p>
-                    <p>很高兴收到你的留言，非常的感谢您的建议，会马上改进的</p>
-                    <a class="reply" onclick="show(this)">回复<i class="glyphicon glyphicon-pencil"></i></a>
-                    <p class="msgWrap">
-                        <textarea class="msg" placeholder="请输入你的意见(500字以内)"></textarea>
-                        <button class="btn btn-success">评论</button>
-                    </p>
-                </div>
-            </div>
-            <div class="article-page">
-                <div class="leavemsg">
-                    <p class="msg-header">
-                        <a href="#">qinfeng</a>
-                        <time>2015-12-30 12:23:34</time>
-                    </p>
-                    <p>nihao,zheshi liuyan。你好，这是留言。nihao,zheshi liuyan。你好，这是留言。nihao,zheshi liuyan。你好，这是留言。nihao,zheshi liuyan。你好，这是留言。nihao,zheshi liuyan。你好，这是留言。</p>
-                    <a class="reply" onclick="show(this)">回复<i class="glyphicon glyphicon-pencil"></i></a>
-                    <p class="msgWrap">
-                        <textarea class="msg" placeholder="请输入你的意见(500字以内)"></textarea>
-                        <button class="btn btn-success">评论</button>
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>
     <div class="paginationW">
-        <button class="more">查看更多</button>
+        @if (ViewBag.Loaded >= ViewBag.Total)
+        {
+            <button class="more none" disabled>没有更多了</button>
+        }
+        else
+        {
+            <button class="more">查看更多</button>
+        }
     </div>
 </div>
 
@@ -185,7 +116,6 @@
         </footer>
     </div>
 </script>
-
 <script src="~/Scripts/template.js" type="text/javascript"></script>
 <script src="~/Scripts/jquery.common.js" type="text/javascript"></script>
 <script type="text/javascript">
@@ -201,12 +131,12 @@
     });
 
     function Page() {
-        var index = $("li.navactive a").attr("data-typeid");
-        if (index != "4") {
+        var tag = $(".tag-cloud a.active").text();
+        if (tag) {
             $.ajax({
-                url: '/Article/CategoryPage',
+                url: '@Url.Action("TagPages", "Article")',
                 dataType: 'json',
-                data: { Index: index, PageIndex: pageIndex },
+                data: { tag: tag, PageIndex: pageIndex },
                 type: 'post',
                 success: function (data) {
                     if (data.status) {
@@ -221,33 +151,6 @@
                         }
                     } else {
                         $(".more").hide();
-                    }
-                },
-                error: function (data) {
-                }
-            });
-        } else {
-            $.ajax({
-                url: '/LeaveMessage/Pages',
-                dataType: 'json',
-                data: { PageIndex: pageIndex },
-                type: 'post',
-                success: function (data) {
-                    if (data.status) {
-                        $(".total").parent().html('共：<span class="total">' + data.total + '</span> 条');
-                        $(".article-page .loaded").parent().html('已加载：<span class="loaded">' + (--data.pageindex * data.pagesize + data.curpagecount) + '</span> 条');
-                        var leavemsglist = $(".leavemsg-page");
-                        $.each(data.data, function (index, element) {
-                            leavemsglist.append(TrimPath.processDOMTemplate("leaveMsgTmpl", element));
-                        });
-                        if ((data.pageindex * data.pagesize + data.curpagecount) >= data.total) {
-                            $(".more").addClass('none');
-                            $(".more").text("没有更多了").attr("disabled", "disabled");
-                        }
-                    } else {
-                        $(".total").parent().html('共：<span class="total">' + data.total + '</span> 条');
-                        $(".article-page .loaded").parent().html('已加载：<span class="loaded">' + (--data.pageindex * data.pagesize + data.curpagecount) + '</span> 条');
-                        $(".article-page").siblings(".article").remove();
                     }
                 },
                 error: function (data) {

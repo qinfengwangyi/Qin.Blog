@@ -34,7 +34,7 @@ namespace Qin.Blog.IDao
 
 
 
-        List<ArticleDBModel> TagPages(int pageIndex, int pageSize, string conditions, out int total);
+        List<ArticleDBModel> TagPages(string tag, int pageIndex, int pageSize, out int total);
 
     }
 }

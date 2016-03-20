@@ -24,6 +24,6 @@ namespace Qin.Blog.IService
         /// <param name="conditions"></param>
         /// <param name="total"></param>
         /// <returns></returns>
-        List<ArticleDBModel> TagPages(int pageIndex, int pageSize, string conditions, out int total);
+        List<ArticleDBModel> TagPages(string tag ,int pageIndex, int pageSize, out int total);
     }
 }

@@ -84,9 +84,9 @@ namespace Qin.Blog.Service
         }
 
 
-        public List<ArticleDBModel> TagPages(int pageIndex, int pageSize, string conditions, out int total)
+        public List<ArticleDBModel> TagPages(string tag, int pageIndex, int pageSize, out int total)
         {
-            return _IArticleDao.TagPages(pageIndex, pageSize, conditions, out total);
+            return _IArticleDao.TagPages(tag, pageIndex, pageSize, out total);
         }
     }
 }

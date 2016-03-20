@@ -19,7 +19,7 @@ namespace Qin.Blog.Web.Controllers
         // GET: LeaveMessage
         public ActionResult Index()
         {
-            Session["Navindex"] = 4;
+            CUR_SupportInfo.Navindex = 4;
             var total = 0;
             var list = _ILeaveMessageService.LeaveMsgPages(1, 10, "", out total);
             ViewBag.Total = total;

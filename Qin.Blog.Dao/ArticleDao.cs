@@ -254,16 +254,41 @@ namespace Qin.Blog.Dao
 
 
         /// <summary>
-        /// 标签分类
+        /// 标签分类查询
         /// </summary>
         /// <param name="pageIndex"></param>
         /// <param name="pageSize"></param>
         /// <param name="conditions"></param>
         /// <param name="total"></param>
         /// <returns></returns>
-        public List<ArticleDBModel> TagPages(int pageIndex, int pageSize, string conditions, out int total)
+        public List<ArticleDBModel> TagPages(string tag, int pageIndex, int pageSize, out int total)
         {
-            throw new NotImplementedException();
+            total = 0;
+            string sql = @"Select a.*, b.NickName,b.Sex,b.UserName From article a LEFT JOIN user b ON a.UserId = b.Id ";
+            var sql_total = new StringBuilder().Append("Select Count(*) From article a LEFT JOIN user b ON a.UserId = b.Id ");
+            if(!string.IsNullOrEmpty(tag))
+            {
+                sql += string.Format("Where a.Tag Like @Tag");
+                sql_total.Append("Where a.Tag Like @Tag");
+            }
+            sql += " Order By a.CreateTime Desc Limit @PageIndex,@PageSize";
+            List<MySqlParameter> paraslist = new List<MySqlParameter>()
+            {
+                new MySqlParameter("@Tag", tag),
+                new MySqlParameter("@PageIndex", --pageIndex * pageSize),
+                new MySqlParameter("@PageSize", pageSize)
+            };
+
+            var list = _DataBase.QueryList<ArticleDBModel>(sql, paraslist);
+            total = _DataBase.QueryTotal(sql_total.ToString(), paraslist);  //查询总数
+            if (list != null && list.Count > 0)
+            {
+                return list;
+            }
+            else
+            {
+                return null;
+            }
         }
     }
 }

@@ -47,7 +47,14 @@ namespace Qin.Blog.Web.Controllers
         /// <returns></returns>
         public ActionResult Index(int index = 0)
         {
-            Session["Navindex"] = index;//导航
+            var supportInfo = new SupportInfo()
+            {
+                Navindex = 0,
+                TagIndex = ""
+            };
+            Session["SupportInfo"] = supportInfo;
+
+            CUR_SupportInfo.Navindex = index;//导航
 
             int total = 0;
             var list = _IArticleService.CategoryPage(1, 10, index.ToString(), out total);

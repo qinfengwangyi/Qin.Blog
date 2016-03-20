@@ -22,6 +22,7 @@ namespace Qin.Blog.Web.Controllers
         {
             int total = 0;
             var list = _ITagService.GetList(out total);
+            ViewBag.TagIndex = CUR_SupportInfo.TagIndex;
             return PartialView(list);
         }
 
@@ -30,7 +31,7 @@ namespace Qin.Blog.Web.Controllers
         public ActionResult NavHtml()
         {
             ViewBag.User = CUR_USER;
-            ViewBag.Navactive = Navactive.Navindex;
+            ViewBag.Navactive = CUR_SupportInfo.Navindex;
             return PartialView();
         }
 
