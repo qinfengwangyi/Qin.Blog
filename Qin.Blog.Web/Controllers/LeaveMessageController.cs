@@ -34,6 +34,7 @@ namespace Qin.Blog.Web.Controllers
         /// <param name="parentId"></param>
         /// <returns></returns>
         [HttpPost]
+        [StringFilter]
         [ValidateInput(false)]
         public ActionResult Insert(string content)
         {
@@ -65,6 +66,7 @@ namespace Qin.Blog.Web.Controllers
         /// <param name="parentId"></param>
         /// <returns></returns>
         [HttpPost]
+        [StringFilter]
         [ValidateInput(false)]
         public ActionResult Reply(string content, string parentId = "0")
         {

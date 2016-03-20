@@ -550,6 +550,7 @@
     <Compile Include="Filter\CustomActionAttribute.cs" />
     <Compile Include="Filter\HandleExceptionAttribute.cs" />
     <Compile Include="Filter\LoginAuthorizeAttribute.cs" />
+    <Compile Include="Filter\StringFilterAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

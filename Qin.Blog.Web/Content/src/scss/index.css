@@ -133,25 +133,29 @@ nav.navbar {
             color: #fc3e24;
         }
 
-    .sidebar .widget .download p a {
-        display: block;
-        width: 80%;
-        margin: 0 auto;
-        text-align: center;
-        padding: 7px 14px;
-        border-radius: 2px;
-        border: 1px solid #fc3e24;
-        background: #fc3e24;
-        color: #ffffff;
-        -webkit-transition: all 0.2s ease-in-out;
-        -o-transition: all 0.2s ease-in-out;
-        transition: all 0.2s ease-in-out;
+.download .qrcode-wrap p {
+    text-align: center;
+}
+
+.download .qrcode-wrap img {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+@media(max-width:993px) {
+    .download .qrcode-wrap p {
+        text-align: left;
+        padding-left: 10%;
     }
 
-        .sidebar .widget .download p a:hover, .sidebar .widget .download p a:focus {
-            border: 1px solid #303030;
-            background: #303030;
-        }
+    .sidebar .widget .download img {
+        display: block;
+        width: 220px;
+        width: 220px;
+    }
+}
+
 
 /*文章加载信息提示*/
 .article-page {
@@ -399,20 +403,21 @@ nav.navbar {
     border-right: 1px solid #ccc;
 }
 
-    .newComment .commentArea .contentBody .comment-textW .pull-right a {
-        color: #7abb15;
-        display: inline-block;
-    }
+.newComment .commentArea .contentBody .comment-textW .pull-right a {
+    color: #7abb15;
+    display: inline-block;
+}
 
-    .newComment .commentArea .contentBody .comment-textW p{
-        line-height: 22px;
-    }
+.newComment .commentArea .contentBody .comment-textW p {
+    line-height: 22px;
+}
 
     .newComment .commentArea .contentBody .comment-textW p a {
         display: inline;
         cursor: pointer;
         padding-right: 0px;
     }
+
     .newComment .commentArea .contentBody .comment-textW p span {
         color: #999999;
     }
@@ -430,7 +435,8 @@ nav.navbar {
     .feedback .replyArea {
         overflow: hidden;
     }
-    .feedback .reply-textW .comment-text{
+
+    .feedback .reply-textW .comment-text {
         width: 100% !important;
         max-width: 618px;
         height: 100px;
@@ -438,9 +444,10 @@ nav.navbar {
         margin-bottom: 5px;
         border: 2px #dce0e1 solid;
     }
-    .feedback .reply-textW .comment-text:focus{
-        border-color: #7abb15;
-    }
+
+        .feedback .reply-textW .comment-text:focus {
+            border-color: #7abb15;
+        }
 
     .feedback .btn-default {
         margin-right: 12px;

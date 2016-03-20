@@ -55,61 +55,49 @@ input, textarea {
     border: 1px solid #e2e2e2;
     background-color: rgba(200,200,200,0.5);
     border-radius: 3px;
-    opacity: 0;
-    transition: all 1s;
+    display: none;
 }
 
     .floatBox a {
+        padding: 10px;
         display: block;
         text-align: center;
         text-decoration: none;
     }
 
-        .floatBox a:hover i {
-            color: #c2c2c2;
-        }
-
         .floatBox a i {
-            margin: 10px;
             display: block;
             color: #ffffff;
             font-size: 30px;
         }
 
-    .floatBox .bottom {
-        position: relative;
-        /*overflow: hidden;*/
+    .floatBox .top:hover, .bottom:hover {
+        background-color: rgba(200,200,200,0.8);
     }
 
-        .floatBox .bottom a:hover + .qrcode {
-            display: block;
+    .floatBox .bottom {
+        border-top: 1px solid #ffffff;
+    }
+
+        .floatBox .bottom a {
+            padding: 4px;
         }
 
         .floatBox .bottom .qrcode {
             position: absolute;
             right: 60px;
-            bottom: -10px;
+            bottom: 0px;
             padding: 10px;
             background-color: #ffffff;
+            border: 1px solid #e2e2e2;
             border-radius: 3px;
             display: none;
-            transition: all 2s;
         }
 
-            .floatBox .bottom .qrcode:before {
-                position: absolute;
-                content: '';
-                right: -19px;
-                bottom: 15px;
-                width: 0px;
-                height: 0px;
-                border: 10px solid transparent;
-                border-left-color: #ffffff;
-                display: block;
-            }
 
         .floatBox .bottom:hover .qrcode {
             display: block;
+            opacity: 1;
         }
 
         .floatBox .bottom .qrcode img {
@@ -117,9 +105,40 @@ input, textarea {
             width: 100px;
             height: 100px;
         }
-@media(max-width:767px){
-    .floatBox .bottom {
-            display: none;
+
+        .floatBox .bottom .qrcode p {
+            text-align: center;
+            margin: 0 0 5px;
+            color: #666666;
         }
+
+        .floatBox .bottom .qrcode i {
+            position: absolute;
+            display: block;
+            right: -7px;
+            bottom: 20px;
+            width: 13px;
+            height: 13px;
+            background-color: #ffffff;
+            border-top: 1px solid #e2e2e2;
+            border-right: 1px solid #e2e2e2;
+            transform: rotate(45deg);
+        }
+
+            .floatBox .bottom .qrcode i:before {
+                position: absolute;
+                display: block;
+                content: '';
+                right: -2px;
+                bottom: -8px;
+                width: 18px;
+                height: 34px;
+                transform: rotate(-45deg);
+            }
+
+@media(max-width:767px) {
+    .floatBox .bottom {
+        display: none;
+    }
 }
 /*qrcode end*/

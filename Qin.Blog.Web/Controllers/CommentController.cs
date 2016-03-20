@@ -2,6 +2,7 @@
 using Qin.Blog.Extentions;
 using Qin.Blog.IService;
 using Qin.Blog.Service;
+using Qin.Blog.Web.Filter;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,6 +38,7 @@ namespace Qin.Blog.Web.Controllers
         /// <param name="content"></param>
         /// <returns></returns>
         [HttpPost]
+        [StringFilter]
         [ValidateInput(false)]
         public ActionResult Insert(string content, string articleId)
         {
@@ -70,6 +72,7 @@ namespace Qin.Blog.Web.Controllers
         /// <param name="parentId"></param>
         /// <returns></returns>
         [HttpPost]
+        [StringFilter]
         [ValidateInput(false)]
         public ActionResult Reply(string content, string articleId, string parentId = "0")
         {
