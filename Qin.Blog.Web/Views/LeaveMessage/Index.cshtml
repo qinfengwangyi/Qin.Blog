@@ -16,7 +16,7 @@
 
             <div class="article-page">
                 <div class="addleavemsg">
-                    <h4>留下您想说的吧：</h4>
+                    <h4>留下您想说的吧(还可以输入<i class="num" style="font-style:normal;">500</i>字)：</h4>
                     <textarea class="msg-content" placeholder="登录回复您的意见(500字以内)" maxlength="500"></textarea>
                     <button class="btn btn-primary">留言</button>
                 </div>
@@ -80,7 +80,7 @@
             </p>
             <p>${$.HTMLEncode(Content)}</p>
             {if ParentId != "0"}
-            <p class="rmsg">回复//<a>@@${PUserName}:${PContent} <time>时间:${PCreateTime=='/Date(-1893484800000)/'?"":$.modifiers.formatDate(PCreateTime)}</time></a></p>
+            <p class="rmsg">回复//<a>@@${PNickName}</a>:${PContent} <time>时间:${PCreateTime=='/Date(-1893484800000)/'?"":$.modifiers.formatDate(PCreateTime)}</time></p>
             {/if}
             <a class="reply" onclick="show(this)">回复<i class="glyphicon glyphicon-pencil"></i></a>
             <p class="msgWrap" data-parentid="${Id}">
@@ -139,6 +139,12 @@
                 alert('请输入非空意见！');
             }
         });
+    });
+
+    $(".msg-content").on("keyup", function () {
+        var count = $(this).val().length;
+        console.log(count);
+        $(this).parent().find(".num").text(500 - count);
     });
 
     $(".more").click(function () {

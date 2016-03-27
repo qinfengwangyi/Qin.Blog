@@ -20,4 +20,4 @@ $(function () {
         $(this).find(".qrcode").animate({ "display": "block" }, 500);
     });
 
-})
+});
