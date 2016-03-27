@@ -51,8 +51,9 @@ namespace Qin.Blog.Web.Controllers
         /// </summary>
         /// <param name="tag"></param>
         /// <returns></returns>
-        public ActionResult TagPages(string tag)
+        public ActionResult TagPages()
         {
+            string tag = Request.Params[0] ?? null;
             CUR_SupportInfo.TagIndex = tag;
             CUR_SupportInfo.Navindex = 0;//置为0
             int total = 0;

@@ -104,6 +104,7 @@
     <Content Include="Content\src\images\article01.png" />
     <Content Include="Content\src\images\end.ico" />
     <Content Include="Content\src\images\head.png" />
+    <Content Include="Content\src\images\headbg.png" />
     <Content Include="Content\src\js\jquery.min.js" />
     <Content Include="Content\src\scss\bts\fonts\bootstrap\glyphicons-halflings-regular.svg" />
     <Content Include="Content\src\scss\bts\javascripts\bootstrap-sprockets.js" />
