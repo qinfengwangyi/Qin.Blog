@@ -4,7 +4,7 @@
 }
 
 <div class="accountbody">
-    <form id="form1" action="/Article/Insert" method="post">
+    <form id="form1" action="/Article/Insert" method="post" onkeydown="if(event.keyCode==13)return false;">
         <div class="row myrow">
             <div class="col-md-2 col-sm-2 col-xs-3">
                 <label>文章分类：</label>
@@ -90,6 +90,10 @@
                 <input type="button" class="cm-input btn btn-success addtag" value="添加标签" />
                 <div class="taglist">
                 </div>
+                <input type="button" class="cm-input btn btn-primary newtag" value="新增标签" />
+                <div class="newtagw">
+                    <input class="cm-input" type="text" name="TagName" value="" placeholder="新增标签" />
+                </div>
             </div>
         </div>
         <div class="row myrow" style="text-align:center;">
@@ -108,7 +112,7 @@
                 </div>
             </div>
             <div class="row myrow">
-                <div class="col-md-4">
+                <div class="col-md-4" style="text-align: right;">
                     <label>类型名称：</label>
                 </div>
                 <div class="col-md-8">
@@ -116,7 +120,7 @@
                 </div>
             </div>
             <div class="row myrow">
-                <div class="col-md-4">
+                <div class="col-md-4" style="text-align: right;">
                     <label>备注：</label>
                 </div>
                 <div class="col-md-8">
@@ -125,9 +129,8 @@
             </div>
             <div class="row myrow">
                 <div class="col-md-12" style="text-align:center;padding-top: 20px;">
-                    <button type="button" id="cancel" class="btn btn-danger" onclick="Qin.remove()">取消</button>
-                    <button type="reset" class="btn btn-default">重置</button>
                     <button type="submit" class="btn btn-primary">保存</button>
+                    <button type="button" id="cancel" class="btn btn-default" onclick="Qin.remove()">取消</button>
                 </div>
             </div>
         </form>
@@ -162,6 +165,7 @@
     function GetTagList() {
         $.getJSON("@Url.Action("GetList", "Tag")", function (data) {
             if (data.status) {
+                $(".taglist").html("");
                 $.each(data.data, function () {
                     $(".taglist").append("<span>" + this.TagName + "</span>");
                 });
@@ -202,6 +206,26 @@
 
         GetTagList();//get tags
 
+        $(".newtagw").children().on("keydown", function (e) {
+            if (e.keyCode == 13 && $(this).val().trim()) {
+                $.ajax({
+                    url: '@Url.Action("Insert", "Tag")',
+                    data: { tagName: $(this).val() },
+                    dataType: 'json',
+                    success: function (data) {
+                        if (data.status) {
+                            $(this).val("");
+                            GetTagList();
+                        } else {
+                            Qin.Alert(data.message);
+                        }
+                    },
+                    error: function (data) {
+                        console.log(data);
+                    }
+                });
+            }
+        });
     });
 
     var uploader = new WebUploader.Uploader({

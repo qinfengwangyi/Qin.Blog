@@ -20,6 +20,7 @@
     @Scripts.Render("~/bundles/bootstrap")
     @*@Scripts.Render("~/Content/commonjs")*@
     <script src="~/Content/common/js/common.js"></script>
+    <script src="~/Content/common/js/jquery.lazyload.min.js"></script>
     <title>前端汇聚网</title>
 </head>
 <body>
@@ -97,6 +98,13 @@
     $(function () {
         $(".navbar-toggle").on("click", function () {
             $(this).toggleClass("collapsed");
-        })
-    })
+        });
+        $("img").lazyload({ event: "sporty" });
+    });
+
+    $(window).bind("load", function () {
+        var timeout = setTimeout(function () {
+            $("img").trigger("sporty")
+        }, 5000);
+    });
 </script>

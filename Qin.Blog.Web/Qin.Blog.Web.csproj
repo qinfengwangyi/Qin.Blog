@@ -101,6 +101,7 @@
     <Content Include="Content\common\fonts\iconfont.svg" />
     <Content Include="Content\common\images\qrcode.png" />
     <Content Include="Content\common\js\common.js" />
+    <Content Include="Content\common\js\jquery.lazyload.min.js" />
     <Content Include="Content\src\images\article01.png" />
     <Content Include="Content\src\images\end.ico" />
     <Content Include="Content\src\images\head.png" />

@@ -31,6 +31,7 @@ namespace Qin.Blog.Web.Controllers
         /// </summary>
         /// <param name="tag"></param>
         /// <returns></returns>
+        [ValidateInput(false)]
         public ActionResult Insert(Tag tag)
         {
             var model = new Tag

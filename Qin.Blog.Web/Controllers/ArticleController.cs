@@ -54,8 +54,11 @@ namespace Qin.Blog.Web.Controllers
         public ActionResult TagPages()
         {
             string tag = Request.Params[0] ?? null;
-            CUR_SupportInfo.TagIndex = tag;
-            CUR_SupportInfo.Navindex = 0;//置为0
+
+            Session["SupportInfo"] = new SupportInfo { Navindex = 0, TagIndex = tag };
+
+            //CUR_SupportInfo.TagIndex = tag;
+            //CUR_SupportInfo.Navindex = 0;//置为0
             int total = 0;
             var list = _IArticleService.TagPages(tag, 1, 10, out total);
             ViewBag.Total = total;
@@ -144,6 +147,7 @@ namespace Qin.Blog.Web.Controllers
         /// <returns></returns>
         [HttpPost]
         [LoginAuthorize]
+        [ValidateInput(false)]
         public ActionResult Update(Article article)
         {
             article.ModifyTime = DateTime.Now;

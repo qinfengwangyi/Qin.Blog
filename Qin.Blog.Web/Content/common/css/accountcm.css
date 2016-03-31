@@ -27,6 +27,10 @@
     border: 1px solid #ccc;
 }
 
+    .cm-input:focus {
+        border-color: rgba(84,149,153,0.8);
+    }
+
 .title {
     width: 70%;
 }
@@ -36,10 +40,11 @@
     height: 100px;
     border-radius: 4px;
     border: 1px solid #ccc;
+    padding: 10px;
 }
 
 .tag {
-    width: 80%;
+    width: 90%;
 }
 
 .infowrap {
@@ -49,12 +54,15 @@
 
     .infowrap h3 {
         font-size: 18px;
-        font-weight: bold;
         text-align: center;
     }
 
-    .infowrap input{
+    .infowrap input {
         width: 80%;
+    }
+
+    .infowrap .myrow label {
+        font-weight: normal;
     }
 
 .taglist {
@@ -100,14 +108,35 @@
         display: block;
     }
 
-.addtag {
-    width: 60%;
+.newtagw {
+    position: absolute;
+    z-index: 999;
+    top: -60px;
+    width: 180px;
+    left: 125px;
+    height: 60px;
+    background-color: #f2f2f2;
+    border-radius: 4px;
+    padding: 5px;
+    display: none;
+    border: 1px solid #e2e2e2;
 }
 
-    .addtag:hover + .taglist {
+    .newtagw:hover {
         display: block;
     }
 
+    .newtagw .cm-input {
+        width: 100%;
+    }
+
+.addtag:hover + .taglist {
+    display: block;
+}
+
+.newtag:hover + .newtagw {
+    display: block;
+}
 
 
 .input-usr {
@@ -120,7 +149,6 @@
 
 
 .editinfo {
-
 }
 
 

@@ -10,5 +10,7 @@ Qin.Blog.Web/Web.Release.config
 Qin.Blog.Web/Web.Debug.config
 Qin.Blog.Web/UEditor/upload
 Qin.Blog.Web/Uploads/
-Qin.Blog.Web/logs/debug.log
+Qin.Blog.Web/Properties/PublishProfiles/
+
 *.log
+*.user

@@ -71,9 +71,19 @@ input, textarea {
             font-size: 30px;
         }
 
-    .floatBox .top:hover, .bottom:hover {
-        background-color: rgba(200,200,200,0.8);
+    .floatBox .top {
+        border-top-left-radius: 3px;
+        border-top-right-radius: 3px;
     }
+
+    .floatBox .top {
+        border-bottom-left-radius: 3px;
+        border-bottom-right-radius: 3px;
+    }
+
+        .floatBox .top:hover, .bottom:hover {
+            background-color: rgba(84,149,153,0.8);
+        }
 
     .floatBox .bottom {
         border-top: 1px solid #ffffff;
