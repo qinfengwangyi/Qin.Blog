@@ -265,22 +265,22 @@ namespace Qin.Blog.Dao
         {
             total = 0;
             string sql = @"Select a.*, b.NickName,b.Sex,b.UserName From article a LEFT JOIN user b ON a.UserId = b.Id ";
-            var sql_total = new StringBuilder().Append("Select Count(*) From article a LEFT JOIN user b ON a.UserId = b.Id ");
+            var sql_total = @"Select Count(*) From article a LEFT JOIN user b ON a.UserId = b.Id ";
             if(!string.IsNullOrEmpty(tag))
             {
-                sql += string.Format("Where a.Tag Like @Tag");
-                sql_total.Append("Where a.Tag Like @Tag");
+                sql += string.Format("Where a.Tag Like '%{0}%'", tag);
+                sql_total+=string.Format("Where a.Tag Like '%{0}%'", tag);
             }
             sql += " Order By a.CreateTime Desc Limit @PageIndex,@PageSize";
             List<MySqlParameter> paraslist = new List<MySqlParameter>()
             {
-                new MySqlParameter("@Tag", tag),
+                //new MySqlParameter("@Tag", tag),
                 new MySqlParameter("@PageIndex", --pageIndex * pageSize),
                 new MySqlParameter("@PageSize", pageSize)
             };
 
             var list = _DataBase.QueryList<ArticleDBModel>(sql, paraslist);
-            total = _DataBase.QueryTotal(sql_total.ToString(), paraslist);  //查询总数
+            total = _DataBase.QueryTotal(sql_total, paraslist);  //查询总数
             if (list != null && list.Count > 0)
             {
                 return list;

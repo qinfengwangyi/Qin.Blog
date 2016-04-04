@@ -150,10 +150,21 @@ namespace Qin.Blog.Web.Controllers
         [ValidateInput(false)]
         public ActionResult Update(Article article)
         {
-            article.ModifyTime = DateTime.Now;
-            article.ModifyUser = CUR_USER.UserName;
-            var result = _IArticleService.Update(article);
-            return new ActionReturn(true);
+            if (article.Id != null)
+            {
+                var model = _IArticleService.GetById(article.Id);
+                model.TypeId = article.TypeId;
+                model.Title = article.Title;
+                model.Abstract = article.Abstract;
+                model.Pics = article.Pics;
+                model.Content = article.Content;
+                model.Tag = article.Tag;
+                model.ModifyTime = DateTime.Now;
+                model.ModifyUser = CUR_USER.UserName;
+                var result = _IArticleService.Update(model);
+                return AlertMsgAndJs("修改成功！", "history.go(-1);");
+            }
+            return AlertMsgAndJs("修改失败！", "history.go(-1);");
         }
     }
 }

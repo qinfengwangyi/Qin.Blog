@@ -23,7 +23,9 @@ namespace Qin.Blog.Web.Filter
             var user = filterContext.HttpContext.Session["CUR_USER"];
             if (user == null)
             {
-                filterContext.HttpContext.Response.Redirect("/Account/Login");
+                UrlHelper Url = new UrlHelper(filterContext.RequestContext);
+                string url = Url.Action("Login", "Account", new { area = "" });
+                filterContext.HttpContext.Response.Redirect(url, true);
             }
         }
 
@@ -38,7 +40,7 @@ namespace Qin.Blog.Web.Filter
 
         public override void OnAuthorization(AuthorizationContext filterContext)
         {
-            
+
         }
     }
 

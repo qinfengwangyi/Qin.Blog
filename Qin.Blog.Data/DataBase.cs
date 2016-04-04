@@ -401,7 +401,7 @@ namespace Qin.Blog.Data
         /// <returns></returns>
         public DataSet GetOnlyById4MySql<T>(string Id, T model)
         {
-            string sql = string.Format("SELECT * FROM {0} WHERE 1=1 AND Id = @Id;UPDATE {0} SET ViewCount=ViewCount+1 WHERE Id = @Id;", model.GetType().Name.ToLower());
+            string sql = string.Format("SELECT * FROM {0} WHERE 1=1 AND Id = @Id;", model.GetType().Name.ToLower());
             MySqlParameter[] para = new MySqlParameter[]
             {
                 new MySqlParameter("@Id", Id)

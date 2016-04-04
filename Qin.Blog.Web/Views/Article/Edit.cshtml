@@ -5,6 +5,7 @@
 @model Qin.Blog.Entity.Article
 <div class="accountbody">
     <form id="form1" action="/Article/Update" method="post">
+        <input type="hidden" name="Id" value="@Model.Id" />
         <div class="row myrow">
             <div class="col-md-2 col-sm-2 col-xs-3">
                 <label>文章分类：</label>

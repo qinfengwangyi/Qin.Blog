@@ -11,7 +11,7 @@
             </div>
             <div class="col-md-10 col-sm-10 col-xs-9">
                 <select id="TypeId" name="TypeId" class="cm-input"></select>
-                <input type="button" name="addtype" value="添加分类" class="btn btn-primary" />
+                <input type="button" name="addtype" value="添加分类" class="btn btn-primary" disabled/>
             </div>
         </div>
         <div class="row myrow">
@@ -167,7 +167,7 @@
             if (data.status) {
                 $(".taglist").html("");
                 $.each(data.data, function () {
-                    $(".taglist").append("<span>" + this.TagName + "</span>");
+                    $(".taglist").append("<span>" + this.TagName.replace(/</g, "&lt;").replace(/>/g, "&gt;") + "</span>");
                 });
                 $(".taglist span").click(function () {
                     if (!$(this).prop("class")) {
@@ -214,7 +214,7 @@
                     dataType: 'json',
                     success: function (data) {
                         if (data.status) {
-                            $(this).val("");
+                            $(".newtagw").children().val("");
                             GetTagList();
                         } else {
                             Qin.Alert(data.message);
