@@ -32,13 +32,13 @@
                     </div>
                     @if (article.Pics != null)
                     {
-                    <div class="featured-media">
-                        <img class="img-responsive" src="@article.Pics" alt="文章图片">
-                    </div>
+                        <div class="featured-media">
+                            <img class="img-responsive" src="@article.Pics" alt="文章图片">
+                        </div>
                     }
                     <div class="article-content">
                         <p>
-                            @Html.Raw(article.Abstract)
+                            @(article.IsOriginal == 1 ? "【原创】" : "【转载】")@Html.Raw(article.Abstract)
                         </p>
                     </div>
                     <div class="article-permalink">
@@ -64,11 +64,11 @@
     <div class="paginationW">
         @if (ViewBag.Loaded >= ViewBag.Total)
         {
-        <button class="more none" disabled>没有更多了</button>
+            <button class="more none" disabled>没有更多了</button>
         }
         else
         {
-        <button class="more">查看更多</button>
+            <button class="more">查看更多</button>
         }
     </div>
 </div>
@@ -99,7 +99,7 @@
         </div>
         <div class="article-content">
             <p>
-                ${Abstract}
+                ${IsOriginal==1?"【原创】":"【转载】"}${Abstract}
             </p>
         </div>
         <div class="article-permalink">
