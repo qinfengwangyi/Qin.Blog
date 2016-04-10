@@ -144,6 +144,7 @@ nav.navbar {
 
 .download .qrcode-wrap p {
     text-align: center;
+    font-size: 16px;
 }
 
 .download .qrcode-wrap img {
@@ -200,12 +201,13 @@ nav.navbar {
             line-height: 1.2em;
         }
 
-            .article .article-head .article-title a {
-                color: #303030;
+            .article .article-head a {
+                display: inline-block;
+                color: #333333;
             }
 
-                .article .article-head .article-title a:hover {
-                    color: #303030;
+                .article .article-head a:hover {
+                    color: #539497;
                     text-decoration: none;
                 }
 

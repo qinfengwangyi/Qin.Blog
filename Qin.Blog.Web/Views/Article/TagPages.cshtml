@@ -18,9 +18,9 @@
             {
                 <div class="article">
                     <div class="article-head">
-                        <h2 class="article-title">
-                            <a href="@Url.Action("Detail", "Article", new { id = article.Id })" target="_blank">@article.Title</a>
-                        </h2>
+                        <a href="@Url.Action("Detail", "Article", new { id = article.Id })" target="_blank">
+                            <h2 class="article-title">@article.Title</h2>
+                        </a>
                         <div class="article-meta">
                             <span class="author">
                                 作者：
@@ -38,7 +38,7 @@
                     }
                     <div class="article-content">
                         <p>
-                            @Html.Raw(article.Abstract)
+                            @(article.IsOriginal == 1 ? "【原创】" : "【转载】")@Html.Raw(article.Abstract)
                         </p>
                     </div>
                     <div class="article-permalink">
@@ -99,7 +99,7 @@
         </div>
         <div class="article-content">
             <p>
-                ${Abstract}
+                ${IsOriginal==1?"【原创】":"【转载】"}${Abstract}
             </p>
         </div>
         <div class="article-permalink">
